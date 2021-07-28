@@ -1,0 +1,15 @@
+0**1
+   *
+   *
+   !
+
+M 0 0 A
+
+CARD A
+    MOVE 3
+    STATE B
+
+CARD B
+    TURN 1
+    STATE A
+
