@@ -1,0 +1,6 @@
+class tile
+{
+private:
+    
+public:
+};
