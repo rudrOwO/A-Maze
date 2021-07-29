@@ -4,24 +4,31 @@
 #include <vector>
 #include <string>
 #include "../Assets/tile.h"
-// use noskipws manipulator
 
-// maybe use a enum class to sort out globalUnit ?
 
-// * for no-data tile
-// - for blank tile
-// [0 ~ 9] for data
-// ! for finish tile
+/***************************************************
+ * MAYBE USE AN ENUM CLASS TO SORT OUT GLOBALUNIT ? *
+ *   MAYBE SET CUSTOM DESTINATION FOR EACH BOT ?   *
+ ***************************************************/
+
+
+/**************************
+ *   * FOR NO-DATA TILE   *
+ *    - FOR BLANK TILE    *
+ *    [0 ~ 9] FOR DATA    *
+ * ! FOR DESTINATION TILE *
+ **************************/
 
 
 void loadLevel (int levelNumber, std::vector<std::vector<tile>>& tileMatrix)
 {       
-    std::fstream levelFile;
+    std::fstream levelFile;   // File stream for parsing level file
     std::string levelFileName("Levels/level_" + std::to_string(levelNumber) + ".txt"), rowBuffer;
-    int rowCount = 0, colCount = 0;
-    std::vector<std:: string> dataMatrix;
-
     levelFile.open(levelFileName, std::ios_base::in);
+
+    int rowCount = 0, colCount = 0;
+    std::vector<std:: string> dataMatrix;  // Matrix for storing data written on tiles
+
     
     // Extracting the tile data matrix from Level file
     while (std::getline(levelFile, rowBuffer)) {
@@ -34,5 +41,15 @@ void loadLevel (int levelNumber, std::vector<std::vector<tile>>& tileMatrix)
     rowCount = dataMatrix.size();
     colCount = dataMatrix[0].size();
     
+
+    // Extracting the writability matrix; and then initializing the tile matrix; since now we have everything we need
+    while (std::getline(levelFile, rowBuffer)) {
+        if (rowBuffer == "")
+            break;
+
+
+    }
+    
+
     levelFile.close();
 }

@@ -2,6 +2,11 @@
 #include <vector>
 #include "../Assets/tile.h"
 
+/*****************************************************
+ * DON'T FORGET TO CONVERT FROM DIGITAL CO-ORDINATES *
+ *        TO PURE MATHEMIATICAL CO-ORDINATES         *
+ *****************************************************/
+
 void loadLevel (int levelNumber, std::vector<std::vector<tile>>& tileMatrix);
 
 int main()
