@@ -29,7 +29,7 @@ int main()
 
    // std::vector<std::vector<tile*>> tileMatrix;
     
-    initializable_tile test('*', sf::Vector2f(100.f, 100.f));
+    void_tile test;
     
     //createPalette ();
     //loadLevel(0, tileMatrix);
@@ -46,7 +46,7 @@ int main()
                  window.close();
          }
 
-         window.clear(sf::Color::Black);
+         window.clear(sf::Color(0x606060ff));
          window.draw(test.getShape());
          window.display();
      }

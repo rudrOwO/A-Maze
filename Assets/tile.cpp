@@ -21,6 +21,28 @@ initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPos
 }
 
 
+non_initializable_tile::non_initializable_tile (char newData, const sf::Vector2f& newPosition)
+{
+    shape = sf::ConvexShape(4);
+    shape.setOutlineThickness(5.f);
+    data = newData;
+    position = newPosition;
+    this->setShape(newData);
+
+    // constructing 2:1 Aspect Ratio Tile for Isometric Projection
+    shape.setPoint(0, position + sf::Vector2f(-unit, 0.f));
+    shape.setPoint(1, position + sf::Vector2f(0.f, unit / 2.f));
+    shape.setPoint(2, position + sf::Vector2f(unit, 0.f));
+    shape.setPoint(3, position + sf::Vector2f(0.f, -unit / 2.f));
+}
+
+
+void_tile::void_tile ()
+{
+    // Well it's void after all!
+}
+
+
 char tile::getData () const
 {
     return data;
@@ -58,6 +80,12 @@ void non_initializable_tile::onMouseClick (char newData)
 }
 
 
+void void_tile::onMouseClick (char newData)
+{
+    // Do Nothing
+}
+
+
 void tile::setData (char newData)
 {
     data = newData;
@@ -75,6 +103,12 @@ void non_initializable_tile::setShape (char newData)
 {
     shape.setFillColor(palette[newData].first);
     shape.setOutlineColor(sf::Color::Black);
+}
+
+
+void void_tile::setShape (char newData)
+{
+    // Do Nothing
 }
 
 
