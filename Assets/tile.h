@@ -5,13 +5,20 @@ class tile
 {
 private:
     char data;
-    float scale;   // critical variable : used by the whole engine for setting scale
+    float scale;   // used by the whole engine for setting scale
     
 public:
-    virtual char getData () const;
-    virtual float getScale () const;
+    char getData () const;
+    float getScale () const;
+
+    virtual void setData (char newData);
 };
 
+
+/*****************************************************************
+ *    NOTE THAT "EDITABLE" IMPLIES EDITABILITY BY THE PLAYER     *
+ * IN THE PROGRAMMING STAGE; MACHINES CAN ALWAYS WRITE TO A TILE *
+ *****************************************************************/
 
 class editable_tile : public tile
 {
@@ -21,7 +28,6 @@ class editable_tile : public tile
 
 class non_editable_tile : public tile
 {
-    
 };
  
  

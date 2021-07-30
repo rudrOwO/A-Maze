@@ -7,7 +7,7 @@
  *        TO PURE MATHEMIATICAL CO-ORDINATES         *
  *****************************************************/
 
-void loadLevel (int levelNumber, std::vector<std::vector<tile>>& tileMatrix);
+void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix);
 void createPalette ();
 
 
@@ -22,7 +22,7 @@ int main()
     /**************************
      * ALL ASSETS OF THE GAME *
      **************************/
-    std::vector<std::vector<tile>> tileMatrix;
+    std::vector<std::vector<tile*>> tileMatrix;
     
     
     

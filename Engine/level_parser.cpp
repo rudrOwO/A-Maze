@@ -21,7 +21,8 @@
  **************************/
 
 
-// Mapped tile data to a specific pair of colors; 
+// Mapped tile data to a specific pair of colors
+// The ONLY Golabl varibale of the Project
 const std::map<char, std::pair<sf::Color, sf::Color>> palette = {
     {'*', std::make_pair(sf::Color(0xbdbdbdff), sf::Color(0x8d8d8dff))},
     {'0', std::make_pair(sf::Color(0xec407aff), sf::Color(0xb4004eff))},
@@ -44,7 +45,7 @@ void createPalette ()
 }
 
 
-void loadLevel (int levelNumber, std::vector<std::vector<tile>>& tileMatrix)
+void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix)
 {       
     std::fstream levelFile;   // File stream for parsing level file
     std::string levelFileName("Levels/level_" + std::to_string(levelNumber) + ".txt"), rowBuffer;

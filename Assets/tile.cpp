@@ -17,3 +17,8 @@ float tile::getScale () const
 {
     return scale;
 }
+
+void tile::setData (char newData)
+{
+    data = newData;
+}
