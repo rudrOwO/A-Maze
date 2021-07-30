@@ -7,18 +7,14 @@
 
 extern std::map<char, std::pair<sf::Color, sf::Color>> palette;
 
+
+
 char tile::getData () const
 {
     return data;
 }
 
-
 float tile::getScale () const
 {
     return scale;
-}
-
-void tile::setData (char newData)
-{
-    data = newData;
 }

@@ -1,6 +1,6 @@
-                                /**********************
-                                 * INTERFACE FOR TILE *
-                                 **********************/
+/**********************
+* INTERFACE FOR TILE *
+**********************/
 class tile
 {
 private:
@@ -11,7 +11,6 @@ public:
     char getData () const;
     float getScale () const;
 
-    virtual void setData (char newData);
 };
 
 
@@ -22,15 +21,17 @@ public:
 
 class editable_tile : public tile
 {
-    
+    editable_tile ();
 };
 
 
 class non_editable_tile : public tile
 {
+    non_editable_tile ();
 };
  
  
-class blank_tile : public tile
+class void_tile : public tile
 {
+    void_tile ();
 };
