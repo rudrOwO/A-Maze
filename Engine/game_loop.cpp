@@ -8,16 +8,25 @@
  *****************************************************/
 
 void loadLevel (int levelNumber, std::vector<std::vector<tile>>& tileMatrix);
+void createPalette ();
+
 
 int main()
 {
     // setting up the game window
-    //sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Impossible until it's done");
+    //sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Perfect Blue");
     //window.setFramerateLimit(60);
 
     
-
+    
+    /**************************
+     * ALL ASSETS OF THE GAME *
+     **************************/
     std::vector<std::vector<tile>> tileMatrix;
+    
+    
+    
+    createPalette ();
     loadLevel(0, tileMatrix);
 
     

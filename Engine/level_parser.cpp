@@ -23,7 +23,6 @@
 
 void createPalette ()
 {
-        // 0x9e9e9eff 0x707070ff
     // Mapped tile data to a specific pair of colors
     std::pair<sf::Color, sf::Color> Color['9']; 
 
@@ -38,7 +37,7 @@ void createPalette ()
     Color['7'] = std::make_pair(sf::Color(0x8d6e63ff), sf::Color(0x5f4339ff));
     Color['8'] = std::make_pair(sf::Color(0xc62828ff), sf::Color(0x8e0000ff));
     Color['9'] = std::make_pair(sf::Color(0xe4e65eff), sf::Color(0x7c8500ff));
-    Color['!'] = std::make_pair(sf::Color(0x2196f3ff), sf::Color(0x0069c0ff));
+    Color['!'] = std::make_pair(sf::Color(0x2196f3ff), sf::Color(0x0069c0ff));   // Perfect Blue
 
     // Create Palette here    
 }
