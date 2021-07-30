@@ -6,14 +6,14 @@ class tile
 {
 protected:
     char data;
-    float scale = 25.f;   // used by the whole engine for setting scale
+    const float unit = 50.f;   
     sf::Vector2f position;
     sf::ConvexShape shape;
     
 public:
     // getters
     char getData () const;
-    float getScale () const;
+    float getUnit () const;
     const sf::ConvexShape& getShape () const;
 
     // setters
@@ -32,6 +32,7 @@ public:
 
 class initializable_tile : public tile
 {
+public:
     initializable_tile (char newData, const sf::Vector2f& newPosition);
     void onMouseClick (char newData) override;
 };
@@ -39,6 +40,7 @@ class initializable_tile : public tile
 
 class non_initializable_tile : public tile
 {
+public:
     non_initializable_tile (char newData, const sf::Vector2f& newPosition);
     void onMouseClick (char newData) override;
 };
@@ -46,6 +48,7 @@ class non_initializable_tile : public tile
  
 class void_tile : public non_initializable_tile
 {
+public:
     void_tile (char newData, const sf::Vector2f& newPosition);
     bool isVoid () override;
 };

@@ -8,15 +8,17 @@ extern std::map<char, std::pair<sf::Color, sf::Color>> palette;
 initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPosition)
 {
     shape = sf::ConvexShape(4);
+    shape.setOutlineThickness(5.f);
     data = newData;
     position = newPosition;
     this->setShape(newData);
 
     // constructing 2:1 Aspect Ratio Tile for Isometric Projection
-    
+    shape.setPoint(0, position + sf::Vector2f(-unit, 0.f));
+    shape.setPoint(1, position + sf::Vector2f(0.f, unit / 2.f));
+    shape.setPoint(2, position + sf::Vector2f(unit, 0.f));
+    shape.setPoint(3, position + sf::Vector2f(0.f, -unit / 2.f));
 }
-
-
 
 
 char tile::getData () const
@@ -25,9 +27,9 @@ char tile::getData () const
 }
 
 
-float tile::getScale () const
+float tile::getUnit () const
 {
-    return scale;
+    return unit;
 }
 
 
