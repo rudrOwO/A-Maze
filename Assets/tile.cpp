@@ -2,9 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
-#include <vector>
+#include <map>
 #include <string>
 
+extern std::map<char, std::pair<sf::Color, sf::Color>> palette;
 
 char tile::getData () const
 {
