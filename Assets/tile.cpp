@@ -8,7 +8,7 @@ extern std::map<char, std::pair<sf::Color, sf::Color>> palette;
 initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPosition)
 {
     shape = sf::ConvexShape(4);
-    shape.setOutlineThickness(5.f);
+    shape.setOutlineThickness(-4.f);
     data = newData;
     position = newPosition;
     this->setShape(newData);
@@ -24,7 +24,7 @@ initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPos
 non_initializable_tile::non_initializable_tile (char newData, const sf::Vector2f& newPosition)
 {
     shape = sf::ConvexShape(4);
-    shape.setOutlineThickness(5.f);
+    shape.setOutlineThickness(-4.f);
     data = newData;
     position = newPosition;
     this->setShape(newData);
@@ -46,12 +46,6 @@ void_tile::void_tile ()
 char tile::getData () const
 {
     return data;
-}
-
-
-float tile::getUnit () const
-{
-    return unit;
 }
 
 
@@ -102,7 +96,7 @@ void initializable_tile::setShape (char newData)
 void non_initializable_tile::setShape (char newData)
 {
     shape.setFillColor(palette[newData].first);
-    shape.setOutlineColor(sf::Color::Black);
+    shape.setOutlineColor(sf::Color(0x0069c0ff));
 }
 
 

@@ -27,12 +27,10 @@ int main()
      * ALL ASSETS OF THE GAME *
      **************************/
 
-   // std::vector<std::vector<tile*>> tileMatrix;
-    
-    void_tile test;
+    std::vector<std::vector<tile*>> tileMatrix;
     
     //createPalette ();
-    //loadLevel(0, tileMatrix);
+    loadLevel(0, tileMatrix);
 
     
      while (window.isOpen())
@@ -46,8 +44,13 @@ int main()
                  window.close();
          }
 
-         window.clear(sf::Color(0x606060ff));
-         window.draw(test.getShape());
+         window.clear(sf::Color(0x232834ff));
+         
+         for (auto& tileRow : tileMatrix) {
+             for (auto& t : tileRow)
+                window.draw(t->getShape()); 
+         }
+
          window.display();
      }
 

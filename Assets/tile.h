@@ -1,19 +1,24 @@
 #include <SFML/Graphics.hpp>
-/**********************
-* INTERFACE FOR TILE *
-**********************/
+
+/**************************
+ *   * FOR BLANK TILE   *
+ *    - FOR VOID TILE    *
+ *    [0 ~ 9] FOR DATA    *
+ * ! FOR DESTINATION TILE *
+ **************************/
+
 class tile
 {
 protected:
     char data;
-    const float unit = 60.f;   
     sf::Vector2f position;
     sf::ConvexShape shape;
     
 public:
+    static constexpr float unit = 60.f;   
+    
     // getters
     char getData () const;
-    float getUnit () const;
     sf::Vector2f getPosition () const;
     const sf::ConvexShape& getShape () const;
 
@@ -26,10 +31,6 @@ public:
 };
 
 
-/*****************************************************************
- *    NOTE THAT "EDITABLE" IMPLIES EDITABILITY BY THE PLAYER     *
- * IN PROGRAMMING STAGE; MACHINES CAN ALWAYS WRITE TO A TILE *
- *****************************************************************/
 
 class initializable_tile : public tile
 {
@@ -39,6 +40,7 @@ public:
     void onMouseClick (char newData) override;
     void setShape (char newData) override;
 };
+
 
 
 class non_initializable_tile : public tile
