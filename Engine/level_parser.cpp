@@ -14,8 +14,8 @@
 
 
 /**************************
- *   * FOR NO-DATA TILE   *
- *    - FOR BLANK TILE    *
+ *   * FOR BLANK TILE   *
+ *    - FOR VOID TILE    *
  *    [0 ~ 9] FOR DATA    *
  * ! FOR DESTINATION TILE *
  **************************/
@@ -23,7 +23,7 @@
 
 // Mapped tile data to a specific pair of colors
 // The ONLY Golabl varibale of the Project
-const std::map<char, std::pair<sf::Color, sf::Color>> palette = {
+std::map<char, std::pair<sf::Color, sf::Color>> palette = {
     {'*', std::make_pair(sf::Color(0xbdbdbdff), sf::Color(0x8d8d8dff))},
     {'0', std::make_pair(sf::Color(0xec407aff), sf::Color(0xb4004eff))},
     {'1', std::make_pair(sf::Color(0x9c27b0ff), sf::Color(0x6a0080ff))},

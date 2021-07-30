@@ -7,6 +7,11 @@
  *        TO PURE MATHEMIATICAL CO-ORDINATES         *
  *****************************************************/
 
+/*******************************************************
+ * DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS *
+ *******************************************************/
+
+
 void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix);
 void createPalette ();
 
