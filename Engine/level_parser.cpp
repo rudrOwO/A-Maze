@@ -46,7 +46,7 @@ std::map<char, std::pair<sf::Color, sf::Color>> palette = {
     {'7', std::make_pair(sf::Color(0x8d6e63ff), sf::Color(0x5f4339ff))},
     {'8', std::make_pair(sf::Color(0xc62828ff), sf::Color(0x8e0000ff))},
     {'9', std::make_pair(sf::Color(0xe4e65eff), sf::Color(0x7c8500ff))},
-    {'!', std::make_pair(sf::Color(0x2196f3ff), sf::Color(0x0069c0ff))}   // Perfect Blue
+    {'!', std::make_pair(sf::Color(0x2196f3ff), sf::Color(0x0069c0ff))}     
 };
 
 
@@ -84,8 +84,6 @@ void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix)
         tileMatrix[i].resize(colCount);
     }
     
-    int a = tileMatrix[0].size();
-    int b = tileMatrix.size();
     
     // Extracting the writability matrix; and then initializing the tile matrix; since now we have everything we need
     int y = 0;
