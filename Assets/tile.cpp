@@ -33,6 +33,12 @@ float tile::getUnit () const
 }
 
 
+sf::Vector2f tile::getPosition () const
+{
+    return position;    
+}
+
+
 const sf::ConvexShape& tile::getShape () const
 {
     return shape;
@@ -58,10 +64,17 @@ void tile::setData (char newData)
 }
 
 
-void tile::setShape (char newData)
+void initializable_tile::setShape (char newData)
 {
     shape.setFillColor(palette[newData].first);
     shape.setOutlineColor(palette[newData].second);
+}
+
+
+void non_initializable_tile::setShape (char newData)
+{
+    shape.setFillColor(palette[newData].first);
+    shape.setOutlineColor(sf::Color::Black);
 }
 
 
