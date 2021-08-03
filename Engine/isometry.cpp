@@ -2,7 +2,7 @@
 #include "../Assets/tile.h"
 
 
-// Functions for IsoMetric Calculations
+// Functions for IsoMetric Transformations
 void isometricIncrementX (sf::Vector2f& vec, int step = 1)
 {
     vec.x += step * tile::unit;

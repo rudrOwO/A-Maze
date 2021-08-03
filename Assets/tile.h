@@ -15,7 +15,7 @@ protected:
     sf::ConvexShape shape;
     
 public:
-    static constexpr float unit = 60.f;   
+    static constexpr float unit = 55.f;   
     
     // getters
     char getData () const;
