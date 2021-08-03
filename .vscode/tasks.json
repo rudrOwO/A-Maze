@@ -1,0 +1,39 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "C/C++: g++-10 build active file",
+			"command": "/usr/bin/g++-10",
+			"args": [
+				"-g",
+				"${workspaceFolder}/Assets/*.cpp",
+				"${workspaceFolder}/Engine/*.cpp",
+				"-o",
+				"${workspaceFolder}/a.out",
+				"-lsfml-graphics",
+				"-lsfml-window",
+				"-lsfml-system"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
+			"detail": "compiler: /usr/bin/g++-10",
+			"presentation": {
+				"echo": true,
+				"reveal": "silent",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			}
+		}
+	]
+}
