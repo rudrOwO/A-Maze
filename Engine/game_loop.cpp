@@ -8,6 +8,9 @@
 *****************************************************
 * DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS *
 *******************************************************/
+// 41 / 182 part of the screen is reserved for tile-Matrix
+// 1 / 14 is reserved for palette on the left
+// 10 / 65 is reserved for deck on the right 
 
 
 void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix);
