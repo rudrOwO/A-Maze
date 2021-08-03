@@ -1,8 +1,6 @@
 #include "tile.h"
+#include "palette.h"
 #include <map>
-
-extern std::map<char, std::pair<sf::Color, sf::Color>> palette;
-
 
 
 initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPosition)
@@ -88,14 +86,16 @@ void tile::setData (char newData)
 
 void initializable_tile::setShape (char newData)
 {
-    shape.setFillColor(palette[newData].first);
-    shape.setOutlineColor(palette[newData].second);
+    const auto& shapeColor = palette::colors.at(newData);
+
+    shape.setFillColor(shapeColor.first);
+    shape.setOutlineColor(shapeColor.second);
 }
 
 
 void non_initializable_tile::setShape (char newData)
 {
-    shape.setFillColor(palette[newData].first);
+    shape.setFillColor(palette::colors.at(newData).first);
     shape.setOutlineColor(sf::Color(0x0069c0ff));
 }
 
