@@ -1,8 +1,7 @@
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <vector>
 #include "../Assets/tile.h"
-
-
 /*****************************************************
 * DON'T FORGET TO CONVERT FROM DIGITAL CO-ORDINATES *
 *        TO PURE MATHEMIATICAL CO-ORDINATES         *
@@ -10,25 +9,37 @@
 * DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS *
 *******************************************************/
 
+
 void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix);
 
 
+bool onTileClick ()
+{
+    
+}
+
+
+bool onPaletteClick ()
+{
+    
+}
 
 
 int main()
 {
-    // Setting up a window
-    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game");
+    // Launching a window
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy" /*, sf::Style::Fullscreen */);
     window.setFramerateLimit(60);
-
     
 /**************************
 * ALL ASSETS OF THE GAME *
 **************************/
 
     std::vector<std::vector<tile*>> tileMatrix;
+    char currentPaletteColor;     
     
-    loadLevel(0, tileMatrix);
+
+    loadLevel(1, tileMatrix);
 
     
     while (window.isOpen()) {
@@ -39,12 +50,16 @@ int main()
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed)
             window.close();
+            
+            // Handling all mouse clicks
+            if (event.type == sf::Event::MouseButtonPressed)
+                ;
         }
 
         window.clear(sf::Color(0x232834ff));
 
-        for (auto& tileRow : tileMatrix) {
-            for (auto& t : tileRow)
+        for (const auto& tileRow : tileMatrix) {
+            for (const auto& t : tileRow)
             window.draw(t->getShape()); 
         }
 
