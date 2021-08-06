@@ -61,10 +61,11 @@ public:
  
 
 
-class void_tile : public non_initializable_tile
+class void_tile : public tile
 {
 public:
-    void_tile ();
+    void_tile (char newData, const sf::Vector2f& newPosition);
 
+    void onMouseClick (char newData) override;
     void setShape (char newData) override;
 };

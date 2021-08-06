@@ -7,40 +7,36 @@ tile::tile (char newData, const sf::Vector2f& newPosition):
     shape(sf::ConvexShape(4)),
     data(newData),
     position(newPosition)
-{}
 
-
-initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPosition):
-    tile(newData, newPosition)
 {
     shape.setOutlineThickness(-3.f);
-    this->setShape(newData);
 
     // constructing 2:1 Aspect Ratio Tile for Isometric Projection
     shape.setPoint(0, position + sf::Vector2f(-unit, 0.f));
     shape.setPoint(1, position + sf::Vector2f(0.f, unit / 2.f));
     shape.setPoint(2, position + sf::Vector2f(unit, 0.f));
     shape.setPoint(3, position + sf::Vector2f(0.f, -unit / 2.f));
+}
+
+
+initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPosition):
+    tile(newData, newPosition)
+{
+    this->setShape(newData);
 }
 
 
 non_initializable_tile::non_initializable_tile (char newData, const sf::Vector2f& newPosition):
     tile(newData, newPosition)
 {
-    shape.setOutlineThickness(-3.f);
     this->setShape(newData);
-
-    // constructing 2:1 Aspect Ratio Tile for Isometric Projection
-    shape.setPoint(0, position + sf::Vector2f(-unit, 0.f));
-    shape.setPoint(1, position + sf::Vector2f(0.f, unit / 2.f));
-    shape.setPoint(2, position + sf::Vector2f(unit, 0.f));
-    shape.setPoint(3, position + sf::Vector2f(0.f, -unit / 2.f));
 }
 
 
-void_tile::void_tile ()
+void_tile::void_tile (char newData, const sf::Vector2f& newPosition):
+    tile(newData, newPosition)
 {
-    // Void tile has nothig to initialize 
+    this->setShape(newData);
 }
 
 
@@ -70,9 +66,11 @@ void initializable_tile::onMouseClick (char newData)
 
 
 void non_initializable_tile::onMouseClick (char newData)
-{
-    // Do Nothing
-}
+{}
+
+
+void void_tile::onMouseClick (char newData)
+{}
 
 
 void tile::setData (char newData)
@@ -99,7 +97,8 @@ void non_initializable_tile::setShape (char newData)
 
 void void_tile::setShape (char newData)
 {
-    // Do Nothing
+    shape.setFillColor(sf::Color(0x00000000));
+    shape.setOutlineColor(sf::Color(0x00000000));
 }
 
 

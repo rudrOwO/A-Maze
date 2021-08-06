@@ -25,6 +25,7 @@ void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix, sf
 /**************************
 * ALL ASSETS OF THE GAME *
 **************************/
+sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy"/*, sf::Style::Fullscreen*/);
 std::vector<std::vector<tile*>> tileMatrix;
 char currentPaletteData('0');     
     
@@ -32,8 +33,21 @@ char currentPaletteData('0');
 bool onTileClick ()
 {
     // Calculating x, y co-ordinates relative to the origin of tile-Map
-    int x = sf::Mouse::getPosition().x;
+    const sf::Vector2f& origin = tileMatrix[0][0]->getPosition();
+
+    int rowCount = tileMatrix.size(),
+        colCount = tileMatrix[0].size(),
+        x = sf::Mouse::getPosition(window).x - (int)origin.x,
+        y = sf::Mouse::getPosition(window).y - (int)origin.y,
+        isometricX = ((2 * y + x) / (int)tile::unit) - rowCount,
+        isometricY = ((2 * y - x) / (int)tile::unit) - rowCount;
+        
+    if (isometricX >= 0 and isometricX < colCount and isometricY >= 0 and isometricY < rowCount) {
+        tileMatrix[isometricY][isometricX]->onMouseClick(currentPaletteData);
+        return true;
+    }
     
+    return false;
 }
 
 
@@ -45,14 +59,10 @@ bool onPaletteClick ()
 
 int main()
 {
-    // Launching a window
-    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy", sf::Style::Fullscreen );
     window.setFramerateLimit(60);
-    
 
     loadLevel(1, tileMatrix, window);
 
-    
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
