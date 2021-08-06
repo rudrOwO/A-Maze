@@ -22,6 +22,13 @@
 void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix, sf::RenderWindow& window);
 
 
+/**************************
+* ALL ASSETS OF THE GAME *
+**************************/
+std::vector<std::vector<tile*>> tileMatrix;
+char currentPaletteData('0');     
+    
+    
 bool onTileClick ()
 {
     // Calculating x, y co-ordinates relative to the origin of tile-Map
@@ -41,14 +48,6 @@ int main()
     // Launching a window
     sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy", sf::Style::Fullscreen );
     window.setFramerateLimit(60);
-    
-/**************************
-* ALL ASSETS OF THE GAME *
-**************************/
-
-    std::vector<std::vector<tile*>> tileMatrix;
-    //palette test;
-    char currentPaletteData('0');     
     
 
     loadLevel(1, tileMatrix, window);
