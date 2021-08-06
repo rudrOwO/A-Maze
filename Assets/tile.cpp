@@ -37,7 +37,7 @@ non_initializable_tile::non_initializable_tile (char newData, const sf::Vector2f
 
 void_tile::void_tile ()
 {
-    // Well it's void after all!
+    // Void tile has nothig to initialize 
 }
 
 

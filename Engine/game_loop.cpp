@@ -2,18 +2,24 @@
 #include <iostream>
 #include <vector>
 #include "../Assets/tile.h"
-/*****************************************************
-* DON'T FORGET TO CONVERT FROM DIGITAL CO-ORDINATES *
-*        TO PURE MATHEMIATICAL CO-ORDINATES         *
-*****************************************************
+#include "../Assets/palette.h"
+
+/***************************************************
+* DON'T FORGET TO CONVERT FROM SCREEN CO-ORDINATES *
+*        TO MATHEMIATICAL CO-ORDINATES             *
+*******************************************************
 * DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS *
-*******************************************************/
-// 41 / 182 part of the screen is reserved for tile-Matrix
-// 1 / 14 is reserved for palette on the left
-// 10 / 65 is reserved for deck on the right 
+***********************************************************
+* REFACTOR TILE CLASS TO INITIALIZE MEMBERS IN BASE CLASS *
+*        REPLACE COLORS WITH BETTER TEXTURES              *
+***********************************************************
+ * 141 / 182 PART OF THE SCREEN IS RESERVED FOR TILE-MATRIX *
+ *       1 / 14 IS RESERVED FOR PALETTE ON THE LEFT        *
+ *        10 / 65 IS RESERVED FOR DECK ON THE RIGHT        *
+ ***********************************************************/
 
 
-void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix);
+void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix, sf::RenderWindow& window);
 
 
 bool onTileClick ()
@@ -31,7 +37,7 @@ bool onPaletteClick ()
 int main()
 {
     // Launching a window
-    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy" /*, sf::Style::Fullscreen */);
+    sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy", sf::Style::Fullscreen );
     window.setFramerateLimit(60);
     
 /**************************
@@ -39,10 +45,11 @@ int main()
 **************************/
 
     std::vector<std::vector<tile*>> tileMatrix;
-    char currentPaletteColor;     
+    //palette test;
+    char currentPaletteData('0');     
     
 
-    loadLevel(1, tileMatrix);
+    loadLevel(1, tileMatrix, window);
 
     
     while (window.isOpen()) {
@@ -50,13 +57,16 @@ int main()
         sf::Event event;
 
         while (window.pollEvent(event)) {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-            window.close();
-            
-            // Handling all mouse clicks
-            if (event.type == sf::Event::MouseButtonPressed)
-                ;
+            switch (event.type) {
+                // "close requested" event: we close the window
+                case sf::Event::Closed:
+                    window.close();
+                    break;
+                
+                // Handling all mouse clicks
+                case sf::Event::MouseButtonPressed:
+                    break;
+            }
         }
 
         window.clear(sf::Color(0x232834ff));
