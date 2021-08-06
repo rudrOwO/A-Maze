@@ -29,7 +29,8 @@ public:
     void setData (char newData);
     virtual void setShape (char newData) = 0;
 
-    virtual bool isVoid ();
+    bool isVoid ();
+    bool isDestination ();
     virtual void onMouseClick (char newData) = 0;
 };
 
@@ -48,6 +49,9 @@ public:
 
 class non_initializable_tile : public tile
 {
+protected:
+    non_initializable_tile () = default;
+
 public:
     non_initializable_tile (char newData, const sf::Vector2f& newPosition);
 
@@ -55,13 +59,12 @@ public:
     void setShape (char newData) override;
 };
  
- 
-class void_tile : public tile
+
+
+class void_tile : public non_initializable_tile
 {
 public:
     void_tile ();
 
     void setShape (char newData) override;
-    void onMouseClick (char newData) override;
-    bool isVoid () override;
 };

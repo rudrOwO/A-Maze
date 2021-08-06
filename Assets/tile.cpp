@@ -75,12 +75,6 @@ void non_initializable_tile::onMouseClick (char newData)
 }
 
 
-void void_tile::onMouseClick (char newData)
-{
-    // Do Nothing
-}
-
-
 void tile::setData (char newData)
 {
     data = newData;
@@ -111,11 +105,11 @@ void void_tile::setShape (char newData)
 
 bool tile::isVoid ()
 {
-    return false;
+    return data == '-';
 }
 
 
-bool void_tile::isVoid ()
+bool tile::isDestination ()
 {
-    return true;
+    return data == '!';
 }
