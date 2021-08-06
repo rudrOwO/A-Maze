@@ -13,10 +13,13 @@ protected:
     char data;
     sf::Vector2f position;
     sf::ConvexShape shape;
-    
+
+    tile () = default;
+    tile (char newData, const sf::Vector2f& newPosition);
+
 public:
     static constexpr float unit = 55.f;   
-    
+
     // getters
     char getData () const;
     sf::Vector2f getPosition () const;

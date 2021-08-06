@@ -24,6 +24,8 @@ void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix, sf
 
 bool onTileClick ()
 {
+    // Calculating x, y co-ordinates relative to the origin of tile-Map
+    int x = sf::Mouse::getPosition().x;
     
 }
 
@@ -65,7 +67,10 @@ int main()
                 
                 // Handling all mouse clicks
                 case sf::Event::MouseButtonPressed:
-                    break;
+                    if (onTileClick())
+                        ;
+                    else if (onPaletteClick())
+                        ;
             }
         }
 

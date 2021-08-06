@@ -3,12 +3,17 @@
 #include <map>
 
 
-initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPosition)
+tile::tile (char newData, const sf::Vector2f& newPosition):
+    shape(sf::ConvexShape(4)),
+    data(newData),
+    position(newPosition)
+{}
+
+
+initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPosition):
+    tile(newData, newPosition)
 {
-    shape = sf::ConvexShape(4);
     shape.setOutlineThickness(-3.f);
-    data = newData;
-    position = newPosition;
     this->setShape(newData);
 
     // constructing 2:1 Aspect Ratio Tile for Isometric Projection
@@ -19,12 +24,10 @@ initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPos
 }
 
 
-non_initializable_tile::non_initializable_tile (char newData, const sf::Vector2f& newPosition)
+non_initializable_tile::non_initializable_tile (char newData, const sf::Vector2f& newPosition):
+    tile(newData, newPosition)
 {
-    shape = sf::ConvexShape(4);
     shape.setOutlineThickness(-3.f);
-    data = newData;
-    position = newPosition;
     this->setShape(newData);
 
     // constructing 2:1 Aspect Ratio Tile for Isometric Projection
