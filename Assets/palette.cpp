@@ -18,14 +18,42 @@ const std::map<char, std::pair<sf::Color, sf::Color>> palette::colors = {
 };
 
 
-palette::palette (sf::RenderWindow& window)
-{
-   firaCode.loadFromFile("Fonts/FiraCode-Regular.woff"); 
+palette::palette (sf::RenderWindow& window, const char& currentPaletteData):
+    window(window),
+    currentPaletteData(currentPaletteData),
+    unit(window.getSize().y / 14.f),
+    paletteBegin(0.f, (window.getSize().y - 10.f * palette::unit) / 2.f)
 
+
+{
+    firaCode.loadFromFile("Fonts/FiraCode-Regular.woff"); 
+
+    sf::Text fillerText;
+    sf::RectangleShape fillerShape(sf::Vector2f(palette::unit, palette::unit));
+
+    fillerText.setFont(firaCode);
+    fillerText.setCharacterSize(25);
+    fillerShape.setOutlineThickness(-4.f);
+    
+    for (char c = '0'; c <= '9'; ++c, paletteBegin += sf::Vector2f(0.f, palette::unit)) {
+        fillerText.setString(c);
+
+        const auto& color = palette::colors.at(c);
+        fillerShape.setFillColor(color.first);
+        fillerShape.setOutlineColor(c == currentPaletteData ? sf::Color(0xddddddff) : color.second);
+
+        fillerText.setPosition(paletteBegin + sf::Vector2f(5.f, 5.f));
+        fillerShape.setPosition(paletteBegin);
+        
+        shapeWithText.emplace_back(fillerShape, fillerText);
+    }
 }
 
 
-void draw (char currentPaletteData, sf::RenderWindow& window)
+void palette::draw ()
 {
-    
+    for (const auto& it : shapeWithText) {
+        window.draw(it.first);
+        window.draw(it.second);
+    }
 }

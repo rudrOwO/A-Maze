@@ -8,13 +8,16 @@
 class palette
 {
 private:
+    float unit;
+    sf::RenderWindow& window;
+    const char& currentPaletteData;
     sf::Font firaCode;
-    sf::Vector2f columnBegin;
+    sf::Vector2f paletteBegin;
     std::vector<std::pair<sf::RectangleShape, sf::Text>> shapeWithText;
 
 public:
     static const std::map<char, std::pair<sf::Color, sf::Color>> colors;
     
-    palette (sf::RenderWindow& window);
-    void draw (char currentPaletteData, sf::RenderWindow& window);
+    palette (sf::RenderWindow& window, const char& currentPaletteData);
+    void draw ();
 };

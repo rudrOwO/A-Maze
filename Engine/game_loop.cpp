@@ -4,15 +4,18 @@
 #include "../Assets/tile.h"
 #include "../Assets/palette.h"
 
-/******************************************************
-* DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS *
-***********************************************************
-*        REPLACE COLORS WITH BETTER TEXTURES              *
-***********************************************************
- * 141 / 182 PART OF THE SCREEN IS RESERVED FOR TILE-MATRIX *
- *       1 / 14 IS RESERVED FOR PALETTE ON THE LEFT        *
- *        10 / 65 IS RESERVED FOR DECK ON THE RIGHT        *
- ***********************************************************/
+
+/***********************************************************
+*   DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS    *
+************************************************************
+*        REPLACE COLORS WITH BETTER TEXTURES               *
+************************************************************
+*  REDUCE ALPHA OF NON_INITIALIZABLE_TILE TO MARK THEM     *
+************************************************************
+* 141 / 182 PART OF THE SCREEN IS RESERVED FOR TILE-MATRIX *
+*       1 / 14 IS RESERVED FOR PALETTE ON THE LEFT         *
+*        10 / 65 IS RESERVED FOR DECK ON THE RIGHT         *
+***********************************************************/
 
 
 void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix, sf::RenderWindow& window);
@@ -24,11 +27,20 @@ void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix, sf
 sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy", sf::Style::Fullscreen);
 std::vector<std::vector<tile*>> tileMatrix; 
 char currentPaletteData('0');     
-    
+palette colorGuide(window, currentPaletteData);
+
+
+void updateBackground ()
+{
+    window.clear(sf::Color(0x232834ff));
+    // draw pallette
+    colorGuide.draw();
+}
+
     
 bool onTileClick ()
 {
-    int rowCount = tileMatrix.size(),
+    int rowCount = tileMatrix.size(), 
         colCount = tileMatrix[0].size();
 
     // Calculating x, y co-ordinates relative to the origin of tile-Map
@@ -50,6 +62,7 @@ bool onTileClick ()
 
 bool onPaletteClick ()
 {
+    return true;
 }
 
 
@@ -86,8 +99,9 @@ int main()
             }
         }
 
-        window.clear(sf::Color(0x232834ff));
+        updateBackground();
 
+        // Continuously draw all dynamic assets
         for (const auto& tileRow : tileMatrix) {
             for (const auto& t : tileRow)
             window.draw(t->getShape()); 

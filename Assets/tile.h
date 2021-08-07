@@ -1,12 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-/**************************
- *   * FOR BLANK TILE   *
- *    - FOR VOID TILE    *
- *    [0 ~ 9] FOR DATA    *
- * ! FOR DESTINATION TILE *
- **************************/
+
+/*************************
+*   * FOR BLANK TILE     *
+*    - FOR VOID TILE     *
+*    [0 ~ 9] FOR DATA    *
+* ! FOR DESTINATION TILE *
+**************************/
+
 
 class tile
 {
