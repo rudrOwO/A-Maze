@@ -22,10 +22,10 @@ palette::palette (sf::RenderWindow& window, const char& currentPaletteData):
     unit(window.getSize().y / 15.f),
     paletteBegin(0.f, (window.getSize().y - 10.f * palette::unit) / 2.f)
 
-
 {
     firaCode.loadFromFile("Fonts/FiraCode-Regular.woff"); 
 
+    sf::Vector2f currentRectanglePos(paletteBegin);
     sf::Text fillerText;
     sf::RectangleShape fillerShape(sf::Vector2f(palette::unit, palette::unit));
 
@@ -33,26 +33,51 @@ palette::palette (sf::RenderWindow& window, const char& currentPaletteData):
     fillerText.setCharacterSize(25);
     fillerShape.setOutlineThickness(-4.f);
     
-    for (char c : {'*', '0', '1', '2', '3', '4', '5', '6', '7'}) {
+    for (char c : drawSequence) {
         const auto& color = palette::colors.at(c);
 
-        fillerText.setString(c == '*' ? ' ' : c);
+        fillerText.setString(c);
         fillerShape.setFillColor(color.first);
-        fillerShape.setOutlineColor(c == currentPaletteData ? sf::Color(0xddddddff) : color.second);
-
-        fillerText.setPosition(paletteBegin + sf::Vector2f(5.f, 5.f));
-        fillerShape.setPosition(paletteBegin);
+        fillerShape.setOutlineColor(color.second);
+        fillerText.setPosition(currentRectanglePos + sf::Vector2f(5.f, 5.f));
+        fillerShape.setPosition(currentRectanglePos);
         
         shapeWithText.emplace_back(fillerShape, fillerText);
-        paletteBegin += sf::Vector2f(0.f, palette::unit);
+        currentRectanglePos += sf::Vector2f(0.f, palette::unit);
     }
 }
 
 
 void palette::draw ()
 {
-    for (const auto& it : shapeWithText) {
+    int seq = 0;
+    for (auto& it : shapeWithText) {
+        char c = drawSequence[seq++];
+
+        if(c == currentPaletteData)
+            it.first.setOutlineColor(sf::Color(0xddddddff));
+        else
+            it.first.setOutlineColor(palette::colors.at(c).second);
+
         window.draw(it.first);
         window.draw(it.second);
     }
+}
+
+
+const sf::Vector2f& palette::getPaletteBegin () const
+{
+    return paletteBegin;
+}
+
+
+size_t palette::getPaletteSize () const
+{
+    return shapeWithText.size();
+}
+
+
+float palette::getUnit () const
+{
+    return unit;
 }

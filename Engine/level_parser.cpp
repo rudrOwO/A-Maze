@@ -29,7 +29,6 @@ void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix, sf
         dataMatrix.push_back(rowBuffer);
     }
     
-
     rowCount = dataMatrix.size();
     colCount = dataMatrix[0].size();
 
