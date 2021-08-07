@@ -5,7 +5,7 @@
 /*************************
 *   * FOR BLANK TILE     *
 *    - FOR VOID TILE     *
-*    [0 ~ 9] FOR DATA    *
+*    [0 ~ 7] FOR DATA    *
 * ! FOR DESTINATION TILE *
 **************************/
 
@@ -21,7 +21,7 @@ protected:
     tile (char newData, const sf::Vector2f& newPosition);
 
 public:
-    static constexpr float unit = 55.f;   
+    static constexpr float unit = 60.f;   
 
     // getters
     char getData () const;

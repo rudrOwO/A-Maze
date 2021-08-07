@@ -12,8 +12,8 @@
 ************************************************************
 *  REDUCE ALPHA OF NON_INITIALIZABLE_TILE TO MARK THEM     *
 ************************************************************
-* 141 / 182 PART OF THE SCREEN IS RESERVED FOR TILE-MATRIX *
-*       1 / 14 IS RESERVED FOR PALETTE ON THE LEFT         *
+* 152 / 195 PART OF THE SCREEN IS RESERVED FOR TILE-MATRIX *
+*       1 / 15 IS RESERVED FOR PALETTE ON THE LEFT         *
 *        10 / 65 IS RESERVED FOR DECK ON THE RIGHT         *
 ***********************************************************/
 
