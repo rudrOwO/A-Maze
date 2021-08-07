@@ -6,16 +6,16 @@
 tile::tile (char newData, const sf::Vector2f& newPosition):
     shape(sf::ConvexShape(4)),
     data(newData),
-    position(newPosition)
+    position(newPosition - sf::Vector2f(0.f, 0.5f * unit))
 
 {
     shape.setOutlineThickness(-3.f);
 
     // constructing 2:1 Aspect Ratio Tile for Isometric Projection
-    shape.setPoint(0, position + sf::Vector2f(-unit, 0.f));
-    shape.setPoint(1, position + sf::Vector2f(0.f, unit / 2.f));
-    shape.setPoint(2, position + sf::Vector2f(unit, 0.f));
-    shape.setPoint(3, position + sf::Vector2f(0.f, -unit / 2.f));
+    shape.setPoint(0, newPosition + sf::Vector2f(-unit, 0.f));
+    shape.setPoint(1, newPosition + sf::Vector2f(0.f, unit / 2.f));
+    shape.setPoint(2, newPosition + sf::Vector2f(unit, 0.f));
+    shape.setPoint(3, newPosition + sf::Vector2f(0.f, -unit / 2.f));
 }
 
 

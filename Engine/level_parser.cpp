@@ -41,7 +41,7 @@ void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix, sf
     
     // Calulating the isometric position of the first tile in the matrix (0, 0)
     float reservedWidth = window.getSize().x * (141.f / 182.f), 
-          initialX = 0.5f * (reservedWidth - (rowCount + colCount) * tile::unit) + (1.f / 14.f) * window.getSize().x + colCount * tile::unit,
+          initialX = 0.5f * (reservedWidth - (rowCount + colCount) * tile::unit) + (1.f / 14.f) * window.getSize().x + rowCount * tile::unit,
           initialY = 0.5f * (window.getSize().y - 0.5f * (rowCount + colCount) * tile::unit) + 0.5f * tile::unit;
 
     sf::Vector2f currentPosition(initialX, initialY);

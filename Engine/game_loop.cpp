@@ -25,22 +25,23 @@ void loadLevel (int levelNumber, std::vector<std::vector<tile*>>& tileMatrix, sf
 /**************************
 * ALL ASSETS OF THE GAME *
 **************************/
-sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy"/*, sf::Style::Fullscreen*/);
-std::vector<std::vector<tile*>> tileMatrix;
+sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy", sf::Style::Fullscreen);
+std::vector<std::vector<tile*>> tileMatrix; 
 char currentPaletteData('0');     
     
     
 bool onTileClick ()
 {
-    // Calculating x, y co-ordinates relative to the origin of tile-Map
-    const sf::Vector2f& origin = tileMatrix[0][0]->getPosition();
-
     int rowCount = tileMatrix.size(),
-        colCount = tileMatrix[0].size(),
-        x = sf::Mouse::getPosition(window).x - (int)origin.x,
-        y = sf::Mouse::getPosition(window).y - (int)origin.y,
-        isometricX = ((2 * y + x) / (int)tile::unit) - rowCount,
-        isometricY = ((2 * y - x) / (int)tile::unit) - rowCount;
+        colCount = tileMatrix[0].size();
+
+    // Calculating x, y co-ordinates relative to the origin of tile-Map
+    static const sf::Vector2f origin = tileMatrix[0][0]->getPosition();
+
+    int x = sf::Mouse::getPosition().x - (int)origin.x,
+        y = sf::Mouse::getPosition().y - (int)origin.y,
+        isometricX = ((x / 2 + y) / (int)tile::unit),
+        isometricY = ((y - x / 2) / (int)tile::unit);
         
     if (isometricX >= 0 and isometricX < colCount and isometricY >= 0 and isometricY < rowCount) {
         tileMatrix[isometricY][isometricX]->onMouseClick(currentPaletteData);
