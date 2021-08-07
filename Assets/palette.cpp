@@ -1,5 +1,4 @@
 #include "palette.h"
-#include <map>
 
 
 // Mapped tile data to a specific pair of colors
@@ -19,8 +18,14 @@ const std::map<char, std::pair<sf::Color, sf::Color>> palette::colors = {
 };
 
 
-palette::palette ()
+palette::palette (sf::RenderWindow& window)
 {
+   firaCode.loadFromFile("Fonts/FiraCode-Regular.woff"); 
 
 }
 
+
+void draw (char currentPaletteData, sf::RenderWindow& window)
+{
+    
+}

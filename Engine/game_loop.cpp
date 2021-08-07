@@ -4,13 +4,9 @@
 #include "../Assets/tile.h"
 #include "../Assets/palette.h"
 
-/***************************************************
-* DON'T FORGET TO CONVERT FROM SCREEN CO-ORDINATES *
-*        TO MATHEMIATICAL CO-ORDINATES             *
-*******************************************************
+/******************************************************
 * DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS *
 ***********************************************************
-* REFACTOR TILE CLASS TO INITIALIZE MEMBERS IN BASE CLASS *
 *        REPLACE COLORS WITH BETTER TEXTURES              *
 ***********************************************************
  * 141 / 182 PART OF THE SCREEN IS RESERVED FOR TILE-MATRIX *
@@ -54,7 +50,6 @@ bool onTileClick ()
 
 bool onPaletteClick ()
 {
-    
 }
 
 
@@ -62,7 +57,7 @@ int main()
 {
     window.setFramerateLimit(60);
 
-    loadLevel(1, tileMatrix, window);
+    loadLevel(0, tileMatrix, window);
 
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
@@ -70,11 +65,18 @@ int main()
 
         while (window.pollEvent(event)) {
             switch (event.type) {
-                // "close requested" event: we close the window
+                // Using 'Close Button' to close window
                 case sf::Event::Closed:
                     window.close();
                     break;
-                
+
+                // Using 'Escape' to close window
+                case sf::Event::KeyPressed:
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                        window.close(); 
+                        break;
+                    }
+                      
                 // Handling all mouse clicks
                 case sf::Event::MouseButtonPressed:
                     if (onTileClick())

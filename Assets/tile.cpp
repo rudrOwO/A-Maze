@@ -1,6 +1,5 @@
 #include "tile.h"
 #include "palette.h"
-#include <map>
 
 
 tile::tile (char newData, const sf::Vector2f& newPosition):

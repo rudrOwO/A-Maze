@@ -1,16 +1,19 @@
-#include <SFML/Graphics.hpp>
-#include <string>
+#include <SFML/Graphics.hpp> 
+#include <vector>
 #include <map>
+#include <utility>
 
 
 class palette
 {
-public:
-    sf::Font dataFont;
-    sf::Text colorData;
+private:
+    sf::Font firaCode;
+    sf::Vector2f columnBegin;
+    std::vector<std::pair<sf::RectangleShape, sf::Text>> shapeWithText;
 
 public:
     static const std::map<char, std::pair<sf::Color, sf::Color>> colors;
     
-    palette ();
+    palette (sf::RenderWindow& window);
+    void draw (char currentPaletteData, sf::RenderWindow& window);
 };
