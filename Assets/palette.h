@@ -1,4 +1,5 @@
-#include <SFML/Graphics.hpp> 
+#pragma once
+#include "tile.h" 
 #include <vector>
 #include <map>
 #include <utility>
