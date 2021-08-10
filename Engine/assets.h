@@ -12,10 +12,10 @@
 
 struct asset_collection
 {
-    tile_matrix* tileMap;
+    Tile_matrix* tileMap;
     // swarm*
     // deck*
 
-    palette* colorGuide;
+    Palette* colorGuide;
     // controller*
 };

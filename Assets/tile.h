@@ -10,15 +10,15 @@
 **************************/
 
 
-class tile
+class Tile
 {
 protected:
     char data;
     sf::Vector2f position;
     sf::ConvexShape shape;
 
-    tile () = default;
-    tile (char newData, const sf::Vector2f& newPosition);
+    Tile () = default;
+    Tile (char newData, const sf::Vector2f& newPosition);
 
 public:
     static constexpr float unit = 60.f;   
@@ -39,10 +39,10 @@ public:
 
 
 
-class initializable_tile : public tile
+class Initializable_tile : public Tile
 {
 public:
-    initializable_tile (char newData, const sf::Vector2f& newPosition);
+    Initializable_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
     void setShape (char newData) override;
@@ -50,13 +50,13 @@ public:
 
 
 
-class non_initializable_tile : public tile
+class Non_initializable_tile : public Tile
 {
 protected:
-    non_initializable_tile () = default;
+    Non_initializable_tile () = default;
 
 public:
-    non_initializable_tile (char newData, const sf::Vector2f& newPosition);
+    Non_initializable_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
     void setShape (char newData) override;
@@ -64,10 +64,10 @@ public:
  
 
 
-class void_tile : public tile
+class Void_tile : public Tile
 {
 public:
-    void_tile (char newData, const sf::Vector2f& newPosition);
+    Void_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
     void setShape (char newData) override;

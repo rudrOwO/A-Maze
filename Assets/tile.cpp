@@ -2,7 +2,7 @@
 #include "palette.h"
 
 
-tile::tile (char newData, const sf::Vector2f& newPosition):
+Tile::Tile (char newData, const sf::Vector2f& newPosition):
     shape(sf::ConvexShape(4)),
     data(newData),
     position(newPosition - sf::Vector2f(0.f, 0.5f * unit))
@@ -18,96 +18,96 @@ tile::tile (char newData, const sf::Vector2f& newPosition):
 }
 
 
-initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPosition):
-    tile(newData, newPosition)
+Initializable_tile::Initializable_tile (char newData, const sf::Vector2f& newPosition):
+    Tile(newData, newPosition)
 {
     this->setShape(newData);
 }
 
 
-non_initializable_tile::non_initializable_tile (char newData, const sf::Vector2f& newPosition):
-    tile(newData, newPosition)
+Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f& newPosition):
+    Tile(newData, newPosition)
 {
     this->setShape(newData);
 }
 
 
-void_tile::void_tile (char newData, const sf::Vector2f& newPosition):
-    tile(newData, newPosition)
+Void_tile::Void_tile (char newData, const sf::Vector2f& newPosition):
+    Tile(newData, newPosition)
 {
     this->setShape(newData);
 }
 
 
-char tile::getData () const
+char Tile::getData () const
 {
     return data;
 }
 
 
-sf::Vector2f tile::getPosition () const
+sf::Vector2f Tile::getPosition () const
 {
     return position;    
 }
 
 
-const sf::ConvexShape& tile::getShape () const
+const sf::ConvexShape& Tile::getShape () const
 {
     return shape;
 }
 
 
-void initializable_tile::onMouseClick (char newData) 
+void Initializable_tile::onMouseClick (char newData) 
 {
     data = newData;
     setShape(newData);
 }
 
 
-void non_initializable_tile::onMouseClick (char newData)
+void Non_initializable_tile::onMouseClick (char newData)
 {}
 
 
-void void_tile::onMouseClick (char newData)
+void Void_tile::onMouseClick (char newData)
 {}
 
 
-void tile::setData (char newData)
+void Tile::setData (char newData)
 {
     data = newData;
 }
 
 
-void initializable_tile::setShape (char newData)
+void Initializable_tile::setShape (char newData)
 {
-    const auto& shapeColor = palette::colors.at(newData);
+    const auto& shapeColor = Palette::colors.at(newData);
 
     shape.setFillColor(shapeColor.first);
     shape.setOutlineColor(shapeColor.second);
 }
 
 
-void non_initializable_tile::setShape (char newData)
+void Non_initializable_tile::setShape (char newData)
 {
-    shape.setFillColor(palette::colors.at(newData).first);
+    shape.setFillColor(Palette::colors.at(newData).first);
     shape.setOutlineColor(sf::Color(0x0069c0ff));
 }
 
 
-void void_tile::setShape (char newData)
+void Void_tile::setShape (char newData)
 {
     shape.setFillColor(sf::Color(0x00000000));
     shape.setOutlineColor(sf::Color(0x00000000));
 }
 
 
-bool tile::isVoid ()
+bool Tile::isVoid ()
 {
     return data == '-';
 }
 
 
-bool tile::isDestination ()
+bool Tile::isDestination ()
 {
     return data == '!';
 }

@@ -13,11 +13,11 @@
 ***********************************************************/
 
 
-void loadLevel (int levelNumber, asset_collection&);
+void loadLevel (int levelNumber, Asset_collection&);
 
 
 sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Potato", sf::Style::Fullscreen);
-asset_collection assets;
+Asset_collection assets;
 
 
 int main()

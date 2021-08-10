@@ -36,8 +36,8 @@ void loadLevel (int levelNumber, asset_collection& assets)
     }
 
 
-    assets.colorGuide = new palette();
-    assets.tileMap = new tile_matrix(dataMatrix, initializerMatrix);
+    assets.colorGuide = new Palette();
+    assets.tileMap = new Tile_matrix(dataMatrix, initializerMatrix);
     
     levelFile.close();
 }

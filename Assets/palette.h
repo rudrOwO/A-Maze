@@ -5,7 +5,7 @@
 #include <utility>
 
 
-class palette
+class Palette
 {
 private:
     float unit;
@@ -18,7 +18,7 @@ private:
 public:
     static const std::map<char, std::pair<sf::Color, sf::Color>> colors;
     
-    palette ();
+    Palette ();
 
     void draw ();
     bool onPaletteClick ();

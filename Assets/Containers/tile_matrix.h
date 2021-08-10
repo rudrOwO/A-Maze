@@ -6,15 +6,15 @@
 #include "../tile.h"
 
 
-class tile_matrix
+class Tile_matrix
 {
 private:
-    std::vector<std::vector<tile*>> tileMatrix; 
+    std::vector<std::vector<Tile*>> grid; 
     sf::Vector2f origin;
     int rowCount, colCount;
 
 public:
-    tile_matrix (const std::vector<std::string>& dataMatrix, const std::vector<std::string>& initializerMatrix);
+    Tile_matrix (const std::vector<std::string>& dataMatrix, const std::vector<std::string>& initializerMatrix);
     
     bool onTileClick ();
     void draw ();

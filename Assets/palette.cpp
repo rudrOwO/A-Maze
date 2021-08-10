@@ -3,10 +3,10 @@
 extern sf::RenderWindow window;
 
 
-char palette::currentData = '0';
+char Palette::currentData = '0';
 
 // Mapped tile data to a specific pair of colors
-const std::map<char, std::pair<sf::Color, sf::Color>> palette::colors = {
+const std::map<char, std::pair<sf::Color, sf::Color>> Palette::colors = {
     {'*', std::make_pair(sf::Color(0xbdbdbdff), sf::Color(0x8d8d8dff))},
     {'0', std::make_pair(sf::Color(0xec407aff), sf::Color(0xb4004eff))},
     {'1', std::make_pair(sf::Color(0x9c27b0ff), sf::Color(0x6a0080ff))},
@@ -20,23 +20,23 @@ const std::map<char, std::pair<sf::Color, sf::Color>> palette::colors = {
 };
 
 
-palette::palette ():
+Palette::Palette ():
     unit(window.getSize().y / 15.f),
-    origin(0.f, (window.getSize().y - 10.f * palette::unit) / 2.f)
+    origin(0.f, (window.getSize().y - 10.f * Palette::unit) / 2.f)
 
 {
     firaCode.loadFromFile("Fonts/FiraCode-Regular.woff"); 
 
     sf::Vector2f currentRectanglePos(origin);
     sf::Text fillerText;
-    sf::RectangleShape fillerShape(sf::Vector2f(palette::unit, palette::unit));
+    sf::RectangleShape fillerShape(sf::Vector2f(Palette::unit, Palette::unit));
 
     fillerText.setFont(firaCode);
     fillerText.setCharacterSize(25);
     fillerShape.setOutlineThickness(-4.f);
     
     for (char c : drawSequence) {
-        const auto& color = palette::colors.at(c);
+        const auto& color = Palette::colors.at(c);
 
         fillerText.setString(c);
         fillerText.setPosition(currentRectanglePos + sf::Vector2f(5.f, 5.f));
@@ -46,12 +46,12 @@ palette::palette ():
         fillerShape.setPosition(currentRectanglePos);
         
         shapeWithText.emplace_back(fillerShape, fillerText);
-        currentRectanglePos += sf::Vector2f(0.f, palette::unit);
+        currentRectanglePos += sf::Vector2f(0.f, Palette::unit);
     }
 }
 
 
-void palette::draw ()
+void Palette::draw ()
 {
     int seq = 0;
     for (auto& it : shapeWithText) {
@@ -60,7 +60,7 @@ void palette::draw ()
         if(c == currentData)
             it.first.setOutlineColor(sf::Color(0xddddddff));
         else
-            it.first.setOutlineColor(palette::colors.at(c).second);
+            it.first.setOutlineColor(Palette::colors.at(c).second);
 
         window.draw(it.first);
         window.draw(it.second);
@@ -68,14 +68,14 @@ void palette::draw ()
 }
 
 
-bool palette::onPaletteClick ()
+bool Palette::onPaletteClick ()
 {
     // Calculating x, y co-ordinates relative to the origin of palette / colorGuide
     int x = sf::Mouse::getPosition().x - (int)origin.x,
         y = sf::Mouse::getPosition().y - (int)origin.y;
     
-    x /= palette::unit;
-    y /= palette::unit;
+    x /= Palette::unit;
+    y /= Palette::unit;
 
     // Bound Check to see which color is clicked on; if any
     if (x < 1 and y >= 0 and y < sizeof(drawSequence)) {
@@ -87,7 +87,7 @@ bool palette::onPaletteClick ()
 }
 
 
-char palette::getCurrentData () 
+char Palette::getCurrentData () 
 {
     return currentData;
 }
