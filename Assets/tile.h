@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 
 /*************************
@@ -15,7 +16,7 @@ class Tile
 protected:
     char data;
     sf::Vector2f position;
-    sf::ConvexShape shape;
+    std::vector<sf::ConvexShape> shapes;
 
     Tile () = default;
     Tile (char newData, const sf::Vector2f& newPosition);
@@ -26,7 +27,6 @@ public:
     // getters
     char getData () const;
     sf::Vector2f getPosition () const;
-    const sf::ConvexShape& getShape () const;
 
     // setters
     void setData (char newData);
@@ -35,6 +35,7 @@ public:
     bool isVoid ();
     bool isDestination ();
     virtual void onMouseClick (char newData) = 0;
+    virtual void draw () = 0;
 };
 
 
@@ -46,20 +47,23 @@ public:
 
     void onMouseClick (char newData) override;
     void setShape (char newData) override;
+    void draw () override;
 };
 
 
 
 class Non_initializable_tile : public Tile
 {
-protected:
-    Non_initializable_tile () = default;
-
+private:
+    sf::Texture lockTexture;
+    sf::Sprite lock;
+    
 public:
     Non_initializable_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
     void setShape (char newData) override;
+    void draw () override;
 };
  
 
@@ -71,4 +75,5 @@ public:
 
     void onMouseClick (char newData) override;
     void setShape (char newData) override;
+    void draw () override;
 };

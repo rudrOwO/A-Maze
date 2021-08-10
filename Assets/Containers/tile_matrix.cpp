@@ -67,7 +67,6 @@ void Tile_matrix::draw ()
 {
     for (int y = 0; y < rowCount; ++y) {
         for (int x = 0; x < colCount; ++x)
-            // getShape() is awaiting upgrade
-            window.draw(grid[y][x]->getShape());
+            grid[y][x]->draw();
     }
 }

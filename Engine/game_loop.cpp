@@ -24,7 +24,7 @@ int main()
 {
     window.setFramerateLimit(60);
 
-    loadLevel(1, assets);
+    loadLevel(0, assets);
 
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
