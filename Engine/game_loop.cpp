@@ -32,11 +32,6 @@ int main()
 
         while (window.pollEvent(event)) {
             switch (event.type) {
-                // Using 'Close Button' to close window
-                case sf::Event::Closed:
-                    window.close();
-                    break;
-
                 // Using 'Escape' to close window
                 case sf::Event::KeyPressed:
                     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
@@ -52,6 +47,7 @@ int main()
                         break;
             }
         }
+
 
         window.clear(sf::Color(0x232834ff));
 

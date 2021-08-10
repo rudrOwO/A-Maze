@@ -63,7 +63,9 @@ void Palette::draw ()
             it.first.setOutlineColor(Palette::colors.at(c).second);
 
         window.draw(it.first);
-        window.draw(it.second);
+
+        if (c != '*')
+            window.draw(it.second);
     }
 }
 
