@@ -2,17 +2,10 @@
 #include <fstream>
 #include <vector>
 #include <string>
-#include "../Assets/tile_matrix.h"
-#include "../Assets/palette.h"
+#include "assets.h"
 
 
-extern tile_matrix* tileMap;
-extern palette* colorGuide;
-// bots
-// cards
-
-
-void loadLevel (int levelNumber)
+void loadLevel (int levelNumber, asset_collection& assets)
 {       
     // File stream for parsing level file
     std::fstream levelFile;   
@@ -43,8 +36,8 @@ void loadLevel (int levelNumber)
     }
 
 
-    colorGuide = new palette();
-    tileMap = new tile_matrix(dataMatrix, initializerMatrix);
+    assets.colorGuide = new palette();
+    assets.tileMap = new tile_matrix(dataMatrix, initializerMatrix);
     
     levelFile.close();
 }

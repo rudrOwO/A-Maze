@@ -1,9 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
-#include "../Assets/tile.h"
-#include "../Assets/tile_matrix.h"
-#include "../Assets/palette.h"
+#include "assets.h"
 
 
 /***********************************************************
@@ -15,22 +13,18 @@
 ***********************************************************/
 
 
-void loadLevel (int levelNumber);
+void loadLevel (int levelNumber, asset_collection&);
 
 
-sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Some Puzzle Game Thingy", sf::Style::Fullscreen);
-
-tile_matrix* tileMap;
-palette* colorGuide;
-// bots
-// cards
+sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Potato", sf::Style::Fullscreen);
+asset_collection assets;
 
 
 int main()
 {
     window.setFramerateLimit(60);
 
-    loadLevel(1);
+    loadLevel(1, assets);
 
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
@@ -52,17 +46,17 @@ int main()
                       
                 // Handling all mouse clicks
                 case sf::Event::MouseButtonPressed:
-                    if (tileMap->onTileClick())
+                    if (assets.tileMap->onTileClick())
                         break;
-                    if (colorGuide->onPaletteClick())
+                    if (assets.colorGuide->onPaletteClick())
                         break;
             }
         }
 
         window.clear(sf::Color(0x232834ff));
 
-        colorGuide->draw();
-        tileMap->draw(); 
+        assets.colorGuide->draw();
+        assets.tileMap->draw(); 
 
         window.display();
     }

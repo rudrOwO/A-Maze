@@ -2,8 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
-#include "palette.h"
-#include "tile.h"
+#include "../palette.h"
+#include "../tile.h"
 
 
 class tile_matrix
