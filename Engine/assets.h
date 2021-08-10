@@ -7,7 +7,7 @@
 #include "../Assets/bot.h"
 
 #include "../Assets/palette.h"
-// #include "Assets/controller.h"
+#include "../Assets/simulator.h"
 
 
 struct Asset_collection
@@ -17,5 +17,5 @@ struct Asset_collection
     // Deck*
 
     Palette* colorGuide;
-    // Simulator*
+    Simulator* simulator;
 };

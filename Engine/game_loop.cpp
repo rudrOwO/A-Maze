@@ -51,11 +51,14 @@ int main()
 
         window.clear(sf::Color(0x232834ff));
 
+        assets.simulator->draw();
         assets.colorGuide->draw();
         assets.tileMap->draw(); 
 
         window.display();
     }
+
+    Simulator::getStatus();
 
     return 0;
 }

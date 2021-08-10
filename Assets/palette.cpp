@@ -42,7 +42,7 @@ Palette::Palette ():
         fillerText.setPosition(currentRectanglePos + sf::Vector2f(5.f, 5.f));
 
         fillerShape.setFillColor(color.first);
-        fillerShape.setOutlineColor(color.second);
+        // fillerShape.setOutlineColor(color.second);
         fillerShape.setPosition(currentRectanglePos);
         
         shapeWithText.emplace_back(fillerShape, fillerText);
@@ -56,9 +56,10 @@ void Palette::draw ()
     int seq = 0;
     for (auto& it : shapeWithText) {
         char c = drawSequence[seq++];
+        sf::Color whiteBorder(0xddddddff);
 
         if(c == currentData)
-            it.first.setOutlineColor(sf::Color(0xddddddff));
+            it.first.setOutlineColor(whiteBorder);
         else
             it.first.setOutlineColor(Palette::colors.at(c).second);
 
