@@ -23,12 +23,8 @@ Simulator::Simulator ():
 
         sprites.emplace_back(buttons.back());
         sprites.back().setTexture(texturePointerSequence.back()); 
-
-        // Dirty Fix; I will remove it once I edit the faulty textures
-        if (i % 2 == 0) {
-            sprites.back().setSize(sf::Vector2f(unit - 5.f, unit - 5.f));
-            sprites.back().setPosition(currentButtonPosition + sf::Vector2f(3.f, 3.f));
-        }
+        sprites.back().setScale(0.8f, 0.8f);
+        sprites.back().move(5.f, 5.f);
         
         buttons.back().setOutlineThickness(-2.f); 
         currentButtonPosition += sf::Vector2f(Simulator::unit, 0.f);
