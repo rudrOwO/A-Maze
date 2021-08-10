@@ -10,12 +10,12 @@
 // #include "Assets/controller.h"
 
 
-struct asset_collection
+struct Asset_collection
 {
     Tile_matrix* tileMap;
-    // swarm*
-    // deck*
+    // Swarm*
+    // Deck*
 
     Palette* colorGuide;
-    // controller*
+    // Simulator*
 };

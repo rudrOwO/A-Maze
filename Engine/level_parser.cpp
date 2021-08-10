@@ -5,7 +5,7 @@
 #include "assets.h"
 
 
-void loadLevel (int levelNumber, asset_collection& assets)
+void loadLevel (int levelNumber, Asset_collection& assets)
 {       
     // File stream for parsing level file
     std::fstream levelFile;   
