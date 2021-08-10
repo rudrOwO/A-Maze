@@ -1,11 +1,12 @@
 #include "simulator.h"
 extern sf::RenderWindow window;
 
+
 int Simulator::status = Simulator::paused;
 
 
 Simulator::Simulator ():
-    bgColor(0xbdbdbdff),
+    grey(0xbdbdbdff), blue(0x2196f3ff), dark_blue(0x0069c0ff), dark_grey(0x8d8d8dff),
     origin(sf::Vector2f(((float)window.getSize().x - Simulator::unit * 4.f) / 2.f, 5.f))
 
 {
@@ -40,17 +41,28 @@ int Simulator::getStatus ()
 
 bool Simulator::onMouseClick ()
 {
+    // Calculating x, y co-ordinates relative to the origin of simulator
+    int x = sf::Mouse::getPosition().x - (int)origin.x,
+        y = sf::Mouse::getPosition().y - (int)origin.y;
+    
+    x /= Simulator::unit;
+    y /= Simulator::unit;
+
+    // Bound Check to see which button is clicked on; if any
+    if (y < 1 and x >= 0 and x < 4) {
+        Simulator::status = x;
+        return true;
+    }
+
     return false;
 }
 
 
 void Simulator::draw ()
 {
-    sf::Color grey(0xbdbdbdff), blue(0x2196f3ff), dark_blue(0x0069c0ff), dark_grey(0x8d8d8dff);
-
     for (int i = 0; i < buttons.size(); ++i) {
-        buttons[i].setFillColor(currentIndex == i ? blue : grey);
-        buttons[i].setOutlineColor(currentIndex == i ? dark_blue : dark_grey);
+        buttons[i].setFillColor(Simulator::status == i ? blue : grey);
+        buttons[i].setOutlineColor(Simulator::status == i ? dark_blue : dark_grey);
 
         window.draw(buttons[i]);
         window.draw(sprites[i]);

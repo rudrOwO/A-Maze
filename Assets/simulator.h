@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -11,9 +12,8 @@ public:
 private:
     float unit = 50.f;
     static int status; 
-    int currentIndex = 0;
     sf::Vector2f origin;
-    sf::Color bgColor;
+    sf::Color grey, blue, dark_blue, dark_grey;
     std::vector<sf::RectangleShape> buttons, sprites;
     std::vector<std::string> textureFileSequence {"play", "pause", "restart", "menu"};
     std::vector<sf::Texture*> texturePointerSequence;

@@ -22,6 +22,7 @@ const std::map<char, std::pair<sf::Color, sf::Color>> Palette::colors = {
 
 Palette::Palette ():
     unit(window.getSize().y / 15.f),
+    whiteBorder(0xddddddff),
     origin(0.f, (window.getSize().y - 10.f * Palette::unit) / 2.f)
 
 {
@@ -32,7 +33,7 @@ Palette::Palette ():
     sf::RectangleShape fillerShape(sf::Vector2f(Palette::unit, Palette::unit));
 
     fillerText.setFont(firaCode);
-    fillerText.setCharacterSize(25);
+    fillerText.setCharacterSize(23);
     fillerShape.setOutlineThickness(-4.f);
     
     for (char c : drawSequence) {
@@ -42,7 +43,6 @@ Palette::Palette ():
         fillerText.setPosition(currentRectanglePos + sf::Vector2f(5.f, 5.f));
 
         fillerShape.setFillColor(color.first);
-        // fillerShape.setOutlineColor(color.second);
         fillerShape.setPosition(currentRectanglePos);
         
         shapeWithText.emplace_back(fillerShape, fillerText);
@@ -56,7 +56,6 @@ void Palette::draw ()
     int seq = 0;
     for (auto& it : shapeWithText) {
         char c = drawSequence[seq++];
-        sf::Color whiteBorder(0xddddddff);
 
         if(c == currentData)
             it.first.setOutlineColor(whiteBorder);

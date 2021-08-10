@@ -41,24 +41,23 @@ int main()
                       
                 // Handling all mouse clicks
                 case sf::Event::MouseButtonPressed:
+                    if (assets.simulator->onMouseClick())
+                        break;
                     if (assets.tileMap->onTileClick())
                         break;
                     if (assets.colorGuide->onPaletteClick())
                         break;
             }
         }
-
-
+         
         window.clear(sf::Color(0x232834ff));
 
         assets.simulator->draw();
         assets.colorGuide->draw();
         assets.tileMap->draw(); 
-
+        
         window.display();
     }
-
-    Simulator::getStatus();
 
     return 0;
 }
