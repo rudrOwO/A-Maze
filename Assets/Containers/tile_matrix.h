@@ -11,7 +11,6 @@ class Tile_matrix
 private:
     std::vector<std::vector<Tile*>> grid; 
     sf::Vector2f origin;
-    sf::Texture* lockTexture;
     int rowCount, colCount;
 
 public:

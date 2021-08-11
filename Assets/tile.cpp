@@ -41,12 +41,20 @@ Initializable_tile::Initializable_tile (char newData, const sf::Vector2f& newPos
 }
 
 
-Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f& newPosition, sf::Texture* lockTexture):
-    // initialize lock here
-    Tile(newData, newPosition)
+Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f& newPosition):
+    Tile(newData, newPosition),
+    crossShape { sf::RectangleShape(sf::Vector2f(Tile::unit, 1.f)), sf::RectangleShape(sf::Vector2f(1.f, Tile::unit / 2.f)) }
 
 {
     this->setShape(newData);
+    
+    crossShape[0].setOrigin(Tile::unit / 2.f, 0.5f);
+    crossShape[1].setOrigin(0.5f, Tile::unit / 4.f);
+
+    for (int i : {0, 1}) {
+        crossShape[i].setPosition(this->getPosition() + sf::Vector2f(0.f, 0.5f * Tile::unit));
+        crossShape[i].setFillColor(sf::Color::Black);
+    } 
 }
 
 
@@ -123,7 +131,10 @@ void Non_initializable_tile::draw ()
     for (auto& shape : shapes)
         window.draw(shape);
     
-    // check for Simulator::status
+    if (Simulator::getStatus() == Simulator::paused) {
+        window.draw(crossShape[0]);
+        window.draw(crossShape[1]);
+    }
 }
 
 

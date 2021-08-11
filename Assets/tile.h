@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
-
+#include "simulator.h"
 
 /*************************
 *   * FOR BLANK TILE     *
@@ -56,10 +56,10 @@ public:
 class Non_initializable_tile : public Tile
 {
 private:
-    sf::RectangleShape lock;
+    sf::RectangleShape crossShape[2];
 
 public:
-    Non_initializable_tile (char newData, const sf::Vector2f& newPosition, sf::Texture* lockTexture);
+    Non_initializable_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
     void draw () override;
