@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include <vector>
+#include "simulator.h"
 
 /*************************
 *   * FOR BLANK TILE     *
@@ -10,65 +11,67 @@
 **************************/
 
 
-class tile
+class Tile
 {
 protected:
     char data;
     sf::Vector2f position;
-    sf::ConvexShape shape;
+    std::vector<sf::ConvexShape> shapes;
 
-    tile () = default;
-    tile (char newData, const sf::Vector2f& newPosition);
+    Tile () = default;
+    Tile (char newData, const sf::Vector2f& newPosition);
 
 public:
-    static constexpr float unit = 60.f;   
+    static constexpr float unit = 60.f, height = 15.f;   
 
     // getters
     char getData () const;
     sf::Vector2f getPosition () const;
-    const sf::ConvexShape& getShape () const;
 
     // setters
     void setData (char newData);
-    virtual void setShape (char newData) = 0;
+    void setShape (char newData);
 
     bool isVoid ();
     bool isDestination ();
+    
+    // pure virtual functions
     virtual void onMouseClick (char newData) = 0;
+    virtual void draw () = 0;
 };
 
 
 
-class initializable_tile : public tile
+class Initializable_tile : public Tile
 {
 public:
-    initializable_tile (char newData, const sf::Vector2f& newPosition);
+    Initializable_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
-    void setShape (char newData) override;
+    void draw () override;
 };
 
 
 
-class non_initializable_tile : public tile
+class Non_initializable_tile : public Tile
 {
-protected:
-    non_initializable_tile () = default;
+private:
+    sf::RectangleShape crossShape[2];
 
 public:
-    non_initializable_tile (char newData, const sf::Vector2f& newPosition);
+    Non_initializable_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
-    void setShape (char newData) override;
+    void draw () override;
 };
  
 
 
-class void_tile : public tile
+class Void_tile : public Tile
 {
 public:
-    void_tile (char newData, const sf::Vector2f& newPosition);
+    Void_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
-    void setShape (char newData) override;
+    void draw () override;
 };

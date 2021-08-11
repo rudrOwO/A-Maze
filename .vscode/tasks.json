@@ -8,6 +8,7 @@
 			"args": [
 				"-g",
 				"${workspaceFolder}/Assets/*.cpp",
+				"${workspaceFolder}/Assets/Containers/*.cpp",
 				"${workspaceFolder}/Engine/*.cpp",
 				"-o",
 				"${workspaceFolder}/a.out",

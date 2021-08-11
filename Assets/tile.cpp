@@ -1,113 +1,142 @@
 #include "tile.h"
 #include "palette.h"
+extern sf::RenderWindow window;
 
 
-tile::tile (char newData, const sf::Vector2f& newPosition):
-    shape(sf::ConvexShape(4)),
+Tile::Tile (char newData, const sf::Vector2f& newPosition):
+    shapes(3, sf::ConvexShape(4)),
     data(newData),
     position(newPosition - sf::Vector2f(0.f, 0.5f * unit))
 
 {
-    shape.setOutlineThickness(-3.f);
+    for (auto& shape : shapes) {
+        shape.setOutlineThickness(-0.75f);
+        shape.setOutlineColor(sf::Color::Black);
+    }
 
-    // constructing 2:1 Aspect Ratio Tile for Isometric Projection
-    shape.setPoint(0, newPosition + sf::Vector2f(-unit, 0.f));
-    shape.setPoint(1, newPosition + sf::Vector2f(0.f, unit / 2.f));
-    shape.setPoint(2, newPosition + sf::Vector2f(unit, 0.f));
-    shape.setPoint(3, newPosition + sf::Vector2f(0.f, -unit / 2.f));
+    // constructing 2:1 Aspect Ratio Tile for Isometric Projection; in counter-clockwise turn
+    shapes[0].setPoint(0, newPosition + sf::Vector2f(-unit, 0.f));
+    shapes[0].setPoint(1, newPosition + sf::Vector2f(0.f, unit / 2.f));
+    shapes[0].setPoint(2, newPosition + sf::Vector2f(unit, 0.f));
+    shapes[0].setPoint(3, newPosition + sf::Vector2f(0.f, -unit / 2.f));
+    
+    // Constructing a composite shape for pseudo 3D effect 
+    shapes[1].setPoint(0, newPosition + sf::Vector2f(-unit, 0.f));
+    shapes[1].setPoint(1, newPosition + sf::Vector2f(0.f, unit / 2.f));
+    shapes[1].setPoint(2, shapes[1].getPoint(1) + sf::Vector2f(0.f, height));
+    shapes[1].setPoint(3, shapes[1].getPoint(0) + sf::Vector2f(0.f, height));
+    
+    shapes[2].setPoint(0, newPosition + sf::Vector2f(0.f, unit / 2.f));
+    shapes[2].setPoint(1, newPosition + sf::Vector2f(unit, 0.f));
+    shapes[2].setPoint(2, shapes[2].getPoint(1) + sf::Vector2f(0.f, height));
+    shapes[2].setPoint(3, shapes[2].getPoint(0) + sf::Vector2f(0.f, height));
 }
 
 
-initializable_tile::initializable_tile (char newData, const sf::Vector2f& newPosition):
-    tile(newData, newPosition)
+Initializable_tile::Initializable_tile (char newData, const sf::Vector2f& newPosition):
+    Tile(newData, newPosition)
+
 {
     this->setShape(newData);
 }
 
 
-non_initializable_tile::non_initializable_tile (char newData, const sf::Vector2f& newPosition):
-    tile(newData, newPosition)
+Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f& newPosition):
+    Tile(newData, newPosition),
+    crossShape { sf::RectangleShape(sf::Vector2f(Tile::unit, 1.f)), sf::RectangleShape(sf::Vector2f(1.f, Tile::unit / 2.f)) }
+
 {
     this->setShape(newData);
+    
+    crossShape[0].setOrigin(Tile::unit / 2.f, 0.5f);
+    crossShape[1].setOrigin(0.5f, Tile::unit / 4.f);
+
+    for (int i : {0, 1}) {
+        crossShape[i].setPosition(this->getPosition() + sf::Vector2f(0.f, 0.5f * Tile::unit));
+        crossShape[i].setFillColor(sf::Color::Black);
+    } 
 }
 
 
-void_tile::void_tile (char newData, const sf::Vector2f& newPosition):
-    tile(newData, newPosition)
-{
-    this->setShape(newData);
-}
+Void_tile::Void_tile (char newData, const sf::Vector2f& newPosition):
+    Tile(newData, newPosition)
+
+{}
 
 
-char tile::getData () const
+char Tile::getData () const
 {
     return data;
 }
 
 
-sf::Vector2f tile::getPosition () const
+sf::Vector2f Tile::getPosition () const
 {
     return position;    
 }
 
 
-const sf::ConvexShape& tile::getShape () const
-{
-    return shape;
-}
-
-
-void initializable_tile::onMouseClick (char newData) 
+void Initializable_tile::onMouseClick (char newData) 
 {
     data = newData;
     setShape(newData);
 }
 
 
-void non_initializable_tile::onMouseClick (char newData)
+void Non_initializable_tile::onMouseClick (char newData)
 {}
 
 
-void void_tile::onMouseClick (char newData)
+void Void_tile::onMouseClick (char newData)
 {}
 
 
-void tile::setData (char newData)
+void Tile::setData (char newData)
 {
     data = newData;
 }
 
 
-void initializable_tile::setShape (char newData)
+void Tile::setShape (char newData)
 {
-    const auto& shapeColor = palette::colors.at(newData);
+    const auto& shapeColor = Palette::colors.at(newData);
 
-    shape.setFillColor(shapeColor.first);
-    shape.setOutlineColor(shapeColor.second);
+    shapes[0].setFillColor(shapeColor.first);
+    shapes[1].setFillColor(shapeColor.second);
+    shapes[2].setFillColor(shapeColor.second);
 }
 
 
-void non_initializable_tile::setShape (char newData)
-{
-    shape.setFillColor(palette::colors.at(newData).first);
-    shape.setOutlineColor(sf::Color(0x0069c0ff));
-}
-
-
-void void_tile::setShape (char newData)
-{
-    shape.setFillColor(sf::Color(0x00000000));
-    shape.setOutlineColor(sf::Color(0x00000000));
-}
-
-
-bool tile::isVoid ()
+bool Tile::isVoid ()
 {
     return data == '-';
 }
 
 
-bool tile::isDestination ()
+bool Tile::isDestination ()
 {
     return data == '!';
 }
+
+
+void Initializable_tile::draw ()
+{
+    for (auto& shape : shapes)
+        window.draw(shape);
+}
+
+
+void Non_initializable_tile::draw ()
+{
+    for (auto& shape : shapes)
+        window.draw(shape);
+    
+    if (Simulator::getStatus() == Simulator::paused) {
+        window.draw(crossShape[0]);
+        window.draw(crossShape[1]);
+    }
+}
+
+
+void Void_tile::draw ()
+{}
