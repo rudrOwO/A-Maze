@@ -22,7 +22,7 @@ protected:
     Tile (char newData, const sf::Vector2f& newPosition);
 
 public:
-    static constexpr float unit = 60.f;   
+    static constexpr float unit = 60.f, height = 15.f;   
 
     // getters
     char getData () const;
@@ -30,10 +30,12 @@ public:
 
     // setters
     void setData (char newData);
-    virtual void setShape (char newData) = 0;
+    void setShape (char newData);
 
     bool isVoid ();
     bool isDestination ();
+    
+    // pure virtual functions
     virtual void onMouseClick (char newData) = 0;
     virtual void draw () = 0;
 };
@@ -46,7 +48,6 @@ public:
     Initializable_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
-    void setShape (char newData) override;
     void draw () override;
 };
 
@@ -55,14 +56,12 @@ public:
 class Non_initializable_tile : public Tile
 {
 private:
-    sf::Texture lockTexture;
-    sf::Sprite lock;
-    
+    sf::RectangleShape lock;
+
 public:
-    Non_initializable_tile (char newData, const sf::Vector2f& newPosition);
+    Non_initializable_tile (char newData, const sf::Vector2f& newPosition, sf::Texture* lockTexture);
 
     void onMouseClick (char newData) override;
-    void setShape (char newData) override;
     void draw () override;
 };
  
@@ -74,6 +73,5 @@ public:
     Void_tile (char newData, const sf::Vector2f& newPosition);
 
     void onMouseClick (char newData) override;
-    void setShape (char newData) override;
     void draw () override;
 };

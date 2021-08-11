@@ -11,6 +11,9 @@ Tile_matrix::Tile_matrix (const std::vector<std::string>& dataMatrix, const std:
     grid(dataMatrix.size(), std::vector<Tile*>(dataMatrix[0].size()))
 
 {
+    // loading texture for Non initializable tile
+    lockTexture->loadFromFile("Texture/lock.png");
+
     // Calulating the isometric position of the first tile in the matrix (0, 0)
     float reservedWidth = window.getSize().x * (152.f / 195.f), 
           initialX = 0.5f * (reservedWidth - (rowCount + colCount) * Tile::unit) + (1.f / 15.f) * window.getSize().x + rowCount * Tile::unit,
@@ -26,7 +29,7 @@ Tile_matrix::Tile_matrix (const std::vector<std::string>& dataMatrix, const std:
                     grid[y][x] = new Void_tile(dataMatrix[y][x], currentPosition);
                     break;
                 case '0':
-                    grid[y][x] = new Non_initializable_tile(dataMatrix[y][x], currentPosition);
+                    grid[y][x] = new Non_initializable_tile(dataMatrix[y][x], currentPosition, lockTexture);
                     break;
                 default:
                     grid[y][x] = new Initializable_tile(dataMatrix[y][x], currentPosition);

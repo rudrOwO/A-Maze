@@ -10,7 +10,7 @@ Tile::Tile (char newData, const sf::Vector2f& newPosition):
 
 {
     for (auto& shape : shapes) {
-        shape.setOutlineThickness(-1.f);
+        shape.setOutlineThickness(-0.75f);
         shape.setOutlineColor(sf::Color::Black);
     }
 
@@ -23,26 +23,28 @@ Tile::Tile (char newData, const sf::Vector2f& newPosition):
     // Constructing a composite shape for pseudo 3D effect 
     shapes[1].setPoint(0, newPosition + sf::Vector2f(-unit, 0.f));
     shapes[1].setPoint(1, newPosition + sf::Vector2f(0.f, unit / 2.f));
-    shapes[1].setPoint(2, shapes[1].getPoint(0) + sf::Vector2f(0.f, 10.f));
-    shapes[1].setPoint(3, shapes[1].getPoint(1) + sf::Vector2f(0.f, 10.f));
-    
+    shapes[1].setPoint(2, shapes[1].getPoint(1) + sf::Vector2f(0.f, height));
+    shapes[1].setPoint(3, shapes[1].getPoint(0) + sf::Vector2f(0.f, height));
     
     shapes[2].setPoint(0, newPosition + sf::Vector2f(0.f, unit / 2.f));
     shapes[2].setPoint(1, newPosition + sf::Vector2f(unit, 0.f));
-    shapes[2].setPoint(2, shapes[2].getPoint(0) + sf::Vector2f(0.f, 10.f));
-    shapes[2].setPoint(3, shapes[2].getPoint(1) + sf::Vector2f(0.f, 10.f));
+    shapes[2].setPoint(2, shapes[2].getPoint(1) + sf::Vector2f(0.f, height));
+    shapes[2].setPoint(3, shapes[2].getPoint(0) + sf::Vector2f(0.f, height));
 }
 
 
 Initializable_tile::Initializable_tile (char newData, const sf::Vector2f& newPosition):
     Tile(newData, newPosition)
+
 {
     this->setShape(newData);
 }
 
 
-Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f& newPosition):
+Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f& newPosition, sf::Texture* lockTexture):
+    // initialize lock here
     Tile(newData, newPosition)
+
 {
     this->setShape(newData);
 }
@@ -50,9 +52,8 @@ Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f
 
 Void_tile::Void_tile (char newData, const sf::Vector2f& newPosition):
     Tile(newData, newPosition)
-{
-    this->setShape(newData);
-}
+
+{}
 
 
 char Tile::getData () const
@@ -88,26 +89,13 @@ void Tile::setData (char newData)
 }
 
 
-void Initializable_tile::setShape (char newData)
+void Tile::setShape (char newData)
 {
     const auto& shapeColor = Palette::colors.at(newData);
 
-    shape.setFillColor(shapeColor.first);
-    shape.setOutlineColor(shapeColor.second);
-}
-
-
-void Non_initializable_tile::setShape (char newData)
-{
-    shape.setFillColor(Palette::colors.at(newData).first);
-    shape.setOutlineColor(sf::Color(0x0069c0ff));
-}
-
-
-void Void_tile::setShape (char newData)
-{
-    shape.setFillColor(sf::Color(0x00000000));
-    shape.setOutlineColor(sf::Color(0x00000000));
+    shapes[0].setFillColor(shapeColor.first);
+    shapes[1].setFillColor(shapeColor.second);
+    shapes[2].setFillColor(shapeColor.second);
 }
 
 
@@ -125,17 +113,19 @@ bool Tile::isDestination ()
 
 void Initializable_tile::draw ()
 {
-    
+    for (auto& shape : shapes)
+        window.draw(shape);
 }
 
 
 void Non_initializable_tile::draw ()
 {
+    for (auto& shape : shapes)
+        window.draw(shape);
     
+    // check for Simulator::status
 }
 
 
 void Void_tile::draw ()
-{
-    
-}
+{}
