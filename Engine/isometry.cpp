@@ -3,25 +3,25 @@
 
 
 // Functions for IsoMetric Transformations
-void isometricIncrementX (sf::Vector2f& vec, int step = 1)
+void isometricIncrementX (sf::Vector2f& vec, int step)
 {
     vec.x += step * Tile::unit;
     vec.y += step * 0.5f * Tile::unit;
 }
 
-void isometricDecrementX (sf::Vector2f& vec, int step = 1)
+void isometricDecrementX (sf::Vector2f& vec, int step)
 {
     vec.x -= step * Tile::unit;
     vec.y -= step * 0.5f * Tile::unit;
 }
 
-void isometricIncrementY (sf::Vector2f& vec, int step = 1)
+void isometricIncrementY (sf::Vector2f& vec, int step)
 {
     vec.x -= step * Tile::unit;
     vec.y += step * 0.5f * Tile::unit;
 }
 
-void isometricDecrementY (sf::Vector2f& vec, int step = 1)
+void isometricDecrementY (sf::Vector2f& vec, int step)
 {
     vec.x += step * Tile::unit;
     vec.y -= step * 0.5f * Tile::unit;

@@ -10,13 +10,13 @@
 ----0-
 ------
 
-M 0 0 A 0
+0 0 A 0
 
-CARD A
-    MOVE 3
-    STATE B
+A
+MOVE 3
+STATE B
 
-CARD B
-    TURN 1
-    STATE A
+B
+TURN 1
+STATE A
 

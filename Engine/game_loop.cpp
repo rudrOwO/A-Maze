@@ -1,11 +1,15 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <vector>
+#include <thread>
+#include <chrono>
 #include "assets.h"
 
 
 /***********************************************************
 *   DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS    *
+************************************************************
+*                IMPLEMENT A TICK RATE                     *
 ************************************************************
 * 152 / 195 PART OF THE SCREEN IS RESERVED FOR TILE-MATRIX *
 *       1 / 15 IS RESERVED FOR PALETTE ON THE LEFT         *

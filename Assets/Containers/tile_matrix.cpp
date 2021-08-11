@@ -32,11 +32,11 @@ Tile_matrix::Tile_matrix (const std::vector<std::string>& dataMatrix, const std:
                     grid[y][x] = new Initializable_tile(dataMatrix[y][x], currentPosition);
             } 
 
-            isometricIncrementX(currentPosition);
+            isometricIncrementX(currentPosition, 1);
         }
 
         isometricDecrementX(currentPosition, colCount);
-        isometricIncrementY(currentPosition); 
+        isometricIncrementY(currentPosition, 1); 
     }
 
     origin = grid[0][0]->getPosition();
@@ -69,4 +69,10 @@ void Tile_matrix::draw ()
         for (int x = 0; x < colCount; ++x)
             grid[y][x]->draw();
     }
+}
+
+
+std::vector<Tile*>& Tile_matrix::operator[] (int rowIndex)
+{
+    return grid[rowIndex];
 }

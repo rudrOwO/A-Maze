@@ -18,4 +18,5 @@ public:
     
     bool onTileClick ();
     void draw ();
+    std::vector<Tile*>& operator[] (int rowIndex);
 };

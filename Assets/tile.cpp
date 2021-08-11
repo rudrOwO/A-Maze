@@ -43,7 +43,10 @@ Initializable_tile::Initializable_tile (char newData, const sf::Vector2f& newPos
 
 Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f& newPosition):
     Tile(newData, newPosition),
-    crossShape { sf::RectangleShape(sf::Vector2f(2 * Tile::unit, 2.f)), sf::RectangleShape(sf::Vector2f(2.f, Tile::unit)) }
+    crossShape { 
+        sf::RectangleShape(sf::Vector2f(2 * Tile::unit, 2.f)), 
+        sf::RectangleShape(sf::Vector2f(2.f, Tile::unit)) 
+    }
 
 {
     this->setShape(newData);
