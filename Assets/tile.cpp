@@ -43,13 +43,16 @@ Initializable_tile::Initializable_tile (char newData, const sf::Vector2f& newPos
 
 Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f& newPosition):
     Tile(newData, newPosition),
-    crossShape { sf::RectangleShape(sf::Vector2f(Tile::unit, 1.f)), sf::RectangleShape(sf::Vector2f(1.f, Tile::unit / 2.f)) }
+    crossShape { sf::RectangleShape(sf::Vector2f(2 * Tile::unit, 2.f)), sf::RectangleShape(sf::Vector2f(2.f, Tile::unit)) }
 
 {
     this->setShape(newData);
     
-    crossShape[0].setOrigin(Tile::unit / 2.f, 0.5f);
-    crossShape[1].setOrigin(0.5f, Tile::unit / 4.f);
+    crossShape[0].setOrigin(Tile::unit, 1.f);
+    crossShape[1].setOrigin(1.f, Tile::unit / 2.f);
+    
+    crossShape[0].setScale(0.33f, 1.f);
+    crossShape[1].setScale(1.f, 0.33f);
 
     for (int i : {0, 1}) {
         crossShape[i].setPosition(this->getPosition() + sf::Vector2f(0.f, 0.5f * Tile::unit));
