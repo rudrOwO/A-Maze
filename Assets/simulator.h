@@ -10,7 +10,7 @@ public:
     enum {running, paused, reload, menu};
 
 private:
-    float unit = 50.f;
+    static constexpr float unit = 50.f;
     static int status; 
     sf::Vector2f origin;
     sf::Color grey, blue, dark_blue, dark_grey;

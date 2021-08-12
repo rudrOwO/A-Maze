@@ -21,12 +21,18 @@ public:
 
 
 private:
+    static constexpr float unit = 50.f;
     int direction, state;
-    //const std::vector<sf::Texture*>& texturePointers;
+    Tile_matrix& tileMap;
+    const std::vector<sf::Texture*>& texturePointers;
     std::vector<sf::RectangleShape> sprites;
     sf::Vector2f position;
     sf::Vector2i logicalPosition;
-    std::deque<Action> actionQueue;
+    std::deque<Action> actionQueue = {
+        {Action::move, 3},
+        {Action::turn, 1},
+        {Action::move, 2}
+    };
 
     void (*isometricMove[4]) (sf::Vector2f&, int) = {
         isometricIncrementX, 
@@ -37,13 +43,14 @@ private:
     
 
 public:
-    Bot (sf::Vector2i logicalPosition, int state, int direction);
+    Bot (sf::Vector2i logicalPosition, int state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix& tileMap);
     
-    void move (int times);
-    void turn (int times);
+    void move ();
+    void turn ();
     void write (int newData);
     void setState (int newState);
     
     void pollActionQueue ();  // continuously check actionQueue for actions
+    void draw ();
     std::deque<Action> getActionQueue (int state, int data); // From the Interpreter
 };

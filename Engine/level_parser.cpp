@@ -35,6 +35,7 @@ void loadLevel (int levelNumber, Asset_collection& assets)
         initializerMatrix.push_back(rowBuffer);
     }
 
+    // Parse botMatrix from file and instantiate the Swarm
 
     assets.colorGuide = new Palette();
     assets.tileMap = new Tile_matrix(dataMatrix, initializerMatrix);

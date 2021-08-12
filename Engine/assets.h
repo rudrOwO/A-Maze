@@ -1,5 +1,5 @@
 #include "../Assets/Containers/tile_matrix.h"
-// #include "../Assets/Containers/swarm.h"
+#include "../Assets/Containers/swarm.h"
 // #include "../Assets/Containers/deck.h"
 
 #include "../Assets/tile.h"
@@ -13,7 +13,7 @@
 struct Asset_collection
 {
     Tile_matrix* tileMap;
-    // Swarm*
+    Swarm* swarm;
     // Deck*
 
     Palette* colorGuide;

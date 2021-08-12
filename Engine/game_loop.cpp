@@ -30,6 +30,10 @@ int main()
 
     loadLevel(0, assets);
 
+    std::string s("1 1 A 0");
+    std::vector<std::string> test{s};
+    Swarm talos(test, *(assets.tileMap));
+
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
@@ -54,11 +58,19 @@ int main()
             }
         }
          
+        
         window.clear(sf::Color(0x232834ff));
 
         assets.simulator->draw();
         assets.colorGuide->draw();
         assets.tileMap->draw(); 
+        
+        talos[0].pollActionQueue();
+
+        std::this_thread::sleep_for(std::chrono::milliseconds(400)); 
+        
+        talos[0].draw();
+        
         
         window.display();
     }
