@@ -1,8 +1,9 @@
 #include "bot.h"
+#include <iostream>
 extern sf::RenderWindow window;
 
 
-Bot::Bot (sf::Vector2i logicalPosition, int state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix& tileMap):
+Bot::Bot (sf::Vector2i logicalPosition, char state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix& tileMap):
     tileMap(tileMap),
     texturePointers(texturePointers),
     logicalPosition(logicalPosition),
@@ -18,6 +19,12 @@ Bot::Bot (sf::Vector2i logicalPosition, int state, int direction, const std::vec
         sprites[i].setPosition(position);
         sprites[i].setTexture(texturePointers[i]);
     }
+}
+
+
+Bot::~Bot ()
+{
+    // calling delete[] sizeof(Bot) may result in unwanted behaviour
 }
 
 
@@ -93,14 +100,14 @@ void Bot::turn ()
 }
 
 
-void Bot::write (int newData)
+void Bot::write (char newData)
 {
     tileMap[logicalPosition.y][logicalPosition.x]->setData(newData);
     tileMap[logicalPosition.y][logicalPosition.x]->setShape(newData);
 }
 
 
-void Bot::setState (int newState)
+void Bot::setState (char newState)
 {
     state = newState;
     actionQueue.clear();

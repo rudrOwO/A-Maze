@@ -36,7 +36,7 @@ Swarm::Swarm (std::ifstream& levelFile, Tile_matrix& tileMap):
             break; 
         
         levelFile >> logicalPostion.y >> state >> direction;
-        bots.push_back(new Bot(logicalPostion, (int)state, direction, botTextures[currentTextureSet], tileMap));
+        bots.push_back(new Bot(logicalPostion, state, direction, botTextures[currentTextureSet], tileMap));
         currentTextureSet = (currentTextureSet + 1) % 4;
     }
 }

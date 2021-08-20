@@ -27,7 +27,7 @@ sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Potato", sf::Style::Fu
 //sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Potato"/*, sf::Style::Fullscreen */);
 Asset_collection assets;
 sf::Color backgroundColor(0x232834ff);
-std::chrono::duration<unsigned int, std::milli> tickRate(400);
+std::chrono::duration<unsigned int, std::milli> tickRate(450);
 
 
 int main()
@@ -62,12 +62,17 @@ int main()
         }
 
         window.clear(backgroundColor); 
+        
+        assets.swarm->pollActions();
+        assets.swarm->checkStatus();
 
         assets.simulator->draw();
         assets.colorGuide->draw();
         assets.tileMap->draw(); 
         assets.swarm->draw();
-        
+
+        std::this_thread::sleep_for(tickRate);
+     
         window.display();
     }
 

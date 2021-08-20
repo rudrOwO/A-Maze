@@ -19,7 +19,8 @@ public:
 
 private:
     static constexpr float unit = 55.f;
-    int direction, state, data;
+    int direction; 
+    char state, data;
     Tile_matrix& tileMap;
     const std::vector<sf::Texture*>& texturePointers;
     std::vector<sf::RectangleShape> sprites;
@@ -28,7 +29,8 @@ private:
     std::deque<Action> actionQueue = {
         {Action::move, 3},
         {Action::turn, 1},
-        {Action::write, 6}
+        {Action::move, 1},
+        {Action::write, '3'}
     };
 
     void (*isometricMove[4]) (sf::Vector2f&, int) = {
@@ -41,13 +43,14 @@ private:
     void read ();
     void move ();
     void turn ();
-    void write (int newData);
-    void setState (int newState);
+    void write (char newData);
+    void setState (char newState);
     std::deque<Action> getActionQueue (int state, int data); // From the Interpreter
 
 
 public:
-    Bot (sf::Vector2i logicalPosition, int state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix& tileMap);
+    Bot (sf::Vector2i logicalPosition, char state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix& tileMap);
+    ~Bot ();
 
     bool isBotDEAD ();
     bool isBotDONE ();
