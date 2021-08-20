@@ -10,7 +10,7 @@
 class Swarm
 {
 private:
-    std::vector<Bot> bots;
+    std::vector<Bot*> bots;
     std::vector<std::vector<int>> collisionCheck;
     std::vector<std::vector<sf::Texture*>> botTextures; 
     Tile_matrix& tileMap; 
