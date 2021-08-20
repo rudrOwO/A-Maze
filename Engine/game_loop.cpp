@@ -66,6 +66,7 @@ int main()
         assets.simulator->draw();
         assets.colorGuide->draw();
         assets.tileMap->draw(); 
+        assets.swarm->draw();
         
         window.display();
     }

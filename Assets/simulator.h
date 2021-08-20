@@ -7,7 +7,7 @@
 class Simulator 
 {
 public:
-    enum {running, paused, restart, menu, gameOver};
+    enum {running, paused, restart, menu, levelPassed, gameOver};
 
 private:
     static constexpr float unit = 50.f;

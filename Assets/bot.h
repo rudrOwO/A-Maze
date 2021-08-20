@@ -4,10 +4,7 @@
 #include <utility>
 #include "Containers/tile_matrix.h"
 #include "../Engine/isometry.h"
-
-
-/* MOVE TURN WRITE STATE 
-   STATE COMMAND IS EFFECTiVE IMMEDIATELY */
+/* STATE COMMAND IS EFFECTiVE IMMEDIATELY */
 
 
 class Bot
@@ -19,11 +16,10 @@ public:
         int type, argument; 
     };
 
-    // Implement (Static ?) Methods for handling logical change of position
 
 private:
     static constexpr float unit = 55.f;
-    int direction, state;
+    int direction, state, data;
     Tile_matrix& tileMap;
     const std::vector<sf::Texture*>& texturePointers;
     std::vector<sf::RectangleShape> sprites;
@@ -32,7 +28,7 @@ private:
     std::deque<Action> actionQueue = {
         {Action::move, 3},
         {Action::turn, 1},
-        {Action::move, 2}
+        {Action::write, 6}
     };
 
     void (*isometricMove[4]) (sf::Vector2f&, int) = {
@@ -42,16 +38,20 @@ private:
         isometricDecrementY
     };
     
-
-public:
-    Bot (sf::Vector2i logicalPosition, int state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix& tileMap);
-    
+    void read ();
     void move ();
     void turn ();
     void write (int newData);
     void setState (int newState);
-    
+    std::deque<Action> getActionQueue (int state, int data); // From the Interpreter
+
+
+public:
+    Bot (sf::Vector2i logicalPosition, int state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix& tileMap);
+
+    bool isBotDEAD ();
+    bool isBotDONE ();
     void pollActionQueue ();  // continuously check actionQueue for actions
     void draw ();
-    std::deque<Action> getActionQueue (int state, int data); // From the Interpreter
+    const sf::Vector2i& getLogicalPosition ();
 };

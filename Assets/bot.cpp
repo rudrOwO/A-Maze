@@ -23,7 +23,11 @@ Bot::Bot (sf::Vector2i logicalPosition, int state, int direction, const std::vec
 
 void Bot::pollActionQueue ()
 {
-    if (not actionQueue.empty()) {
+    if (actionQueue.empty()) {
+        read();
+        // getActionQueue
+
+    } else {
         Action &currentAction = actionQueue.front();
         
         switch (currentAction.type) {
@@ -57,10 +61,26 @@ void Bot::draw ()
 }
 
 
+void Bot::read ()
+{
+    data = tileMap[logicalPosition.y][logicalPosition.x]->getData();
+}
+
+
 void Bot::move ()
 {
+    // Isometric move on tileMap
     isometricMove[direction](position, 1);
-    
+
+    // Logical position update
+    switch (direction) {
+        case 0: ++logicalPosition.x; break;
+        case 1: ++logicalPosition.y; break;
+        case 2: --logicalPosition.x; break;
+        default: --logicalPosition.y;
+    }
+
+    // Updating position of all 4 sprites 
     for (auto& sprite : sprites) {
         sprite.setPosition(position);
     }
@@ -75,8 +95,8 @@ void Bot::turn ()
 
 void Bot::write (int newData)
 {
-    // set data
-    // set shape
+    tileMap[logicalPosition.y][logicalPosition.x]->setData(newData);
+    tileMap[logicalPosition.y][logicalPosition.x]->setShape(newData);
 }
 
 
@@ -84,4 +104,22 @@ void Bot::setState (int newState)
 {
     state = newState;
     actionQueue.clear();
+}
+
+
+bool Bot::isBotDEAD ()
+{
+    return tileMap[logicalPosition.y][logicalPosition.x]->isVoid();
+}
+
+
+bool Bot::isBotDONE ()
+{
+    return tileMap[logicalPosition.y][logicalPosition.x]->isDestination();
+}
+
+
+const sf::Vector2i& Bot::getLogicalPosition ()
+{
+    return logicalPosition;
 }

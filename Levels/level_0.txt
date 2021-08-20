@@ -15,8 +15,6 @@
 a
 move 3
 state b
->>
 b
 turn 1
 state a
-
