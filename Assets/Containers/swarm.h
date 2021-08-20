@@ -17,5 +17,7 @@ private:
 public:
     Swarm (const std::vector<std::string>& botMatrix, Tile_matrix& tileMap);
     void draw ();
+    void pollAction();
+    void checkStatus();
     Bot& operator[] (int index);
 };

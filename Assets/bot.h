@@ -19,9 +19,10 @@ public:
         int type, argument; 
     };
 
+    // Implement (Static ?) Methods for handling logical change of position
 
 private:
-    static constexpr float unit = 50.f;
+    static constexpr float unit = 55.f;
     int direction, state;
     Tile_matrix& tileMap;
     const std::vector<sf::Texture*>& texturePointers;

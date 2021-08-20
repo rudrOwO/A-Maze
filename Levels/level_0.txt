@@ -10,13 +10,13 @@
 ----0-
 ------
 
-1 1 A 0
+1 1 a 0
 
-A
-MOVE 3
-STATE B
+a
+move 3
+state b
 
-B
-TURN 1
-STATE A
+b
+turn 1
+state a
 

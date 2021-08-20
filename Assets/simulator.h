@@ -7,7 +7,7 @@
 class Simulator 
 {
 public:
-    enum {running, paused, reload, menu};
+    enum {running, paused, restart, menu, gameOver};
 
 private:
     static constexpr float unit = 50.f;
@@ -22,6 +22,7 @@ public:
     Simulator ();
 
     static int getStatus ();
+    static void setStatus (int newStatus);
     bool onMouseClick ();
     void draw ();
 };

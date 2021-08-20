@@ -9,7 +9,7 @@
 /***********************************************************
 *   DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS    *
 ************************************************************
-*                IMPLEMENT A TICK RATE                     *
+*           IMPLEMENT COLLISION DETECTION FOR BOTS         *
 ************************************************************
 * 152 / 195 PART OF THE SCREEN IS RESERVED FOR TILE-MATRIX *
 *       1 / 15 IS RESERVED FOR PALETTE ON THE LEFT         *
@@ -20,8 +20,11 @@
 void loadLevel (int levelNumber, Asset_collection&);
 
 
+// These are all the resources you need for the game
 sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Potato", sf::Style::Fullscreen);
 Asset_collection assets;
+sf::Color backgroundColor(0x232834ff);
+std::chrono::duration<unsigned int, std::milli> tickRate(400);
 
 
 int main()
@@ -30,9 +33,6 @@ int main()
 
     loadLevel(0, assets);
 
-    std::string s("1 1 A 0");
-    std::vector<std::string> test{s};
-    Swarm talos(test, *(assets.tileMap));
 
     while (window.isOpen()) {
         // check all the window's events that were triggered since the last iteration of the loop
@@ -57,20 +57,12 @@ int main()
                         break;
             }
         }
-         
-        
-        window.clear(sf::Color(0x232834ff));
+
+        window.clear(backgroundColor); 
 
         assets.simulator->draw();
         assets.colorGuide->draw();
         assets.tileMap->draw(); 
-        
-        talos[0].pollActionQueue();
-
-        std::this_thread::sleep_for(std::chrono::milliseconds(400)); 
-        
-        talos[0].draw();
-        
         
         window.display();
     }

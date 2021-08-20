@@ -7,14 +7,19 @@
 
 void loadLevel (int levelNumber, Asset_collection& assets)
 {       
+
+    // These don't need any parsing for initialization
+    assets.colorGuide = new Palette();
+    assets.simulator = new Simulator();
+
     // File stream for parsing level file
-    std::fstream levelFile;   
+    std::ifstream levelFile;   
     std::string levelFileName("Levels/level_" + std::to_string(levelNumber) + ".txt"), rowBuffer;
 
     levelFile.open(levelFileName, std::ios_base::in);
 
 /**************************
-* PARSING TILE-MATRIX *
+*  PARSING TILE-MATRIX    *
 **************************/
     
     std::vector<std:: string> dataMatrix, initializerMatrix;  // Matrix for storing data written on tiles
@@ -35,11 +40,13 @@ void loadLevel (int levelNumber, Asset_collection& assets)
         initializerMatrix.push_back(rowBuffer);
     }
 
-    // Parse botMatrix from file and instantiate the Swarm
 
-    assets.colorGuide = new Palette();
+/**************************
+*  PARSING BOT-MATRIX    *
+**************************/
+    
+
     assets.tileMap = new Tile_matrix(dataMatrix, initializerMatrix);
-    assets.simulator = new Simulator();
     
     levelFile.close();
 }

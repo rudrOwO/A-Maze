@@ -1,3 +1,4 @@
+#pragma once
 #include "../Assets/Containers/tile_matrix.h"
 #include "../Assets/Containers/swarm.h"
 // #include "../Assets/Containers/deck.h"

@@ -50,11 +50,17 @@ bool Simulator::onMouseClick ()
 
     // Bound Check to see which button is clicked on; if any
     if (y < 1 and x >= 0 and x < 4) {
-        Simulator::status = x;
+        Simulator::setStatus(x);
         return true;
     }
 
     return false;
+}
+
+
+void Simulator::setStatus (int newStatus)
+{
+    Simulator::status = newStatus;
 }
 
 
