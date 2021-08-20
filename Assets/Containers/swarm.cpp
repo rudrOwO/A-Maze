@@ -2,7 +2,7 @@
 extern sf::Window window;
 
 
-Swarm::Swarm (const std::vector<std::string>& botMatrix, Tile_matrix& tileMap):
+Swarm::Swarm (std::ifstream& levelFile, Tile_matrix& tileMap):
     botTextures(4, std::vector<sf::Texture*>(4)),
     tileMap(tileMap)
 
@@ -23,15 +23,19 @@ Swarm::Swarm (const std::vector<std::string>& botMatrix, Tile_matrix& tileMap):
 
     
     // construct bots from botMatrix
-    int currentTextureSet = 0;
-    for (const auto& parseRow : botMatrix) {
-        // 1 1 A 0
-        bots.emplace_back( sf::Vector2i(parseRow[0] - '0', parseRow[2] - '0'),   // logical Position
-                           parseRow[4],  // state
-                           parseRow[6] - '0',   // direction
-                           botTextures[currentTextureSet],  // one suite of textures
-                           tileMap  // reference to tileMap
-                        );
+    int currentTextureSet = 0, direction;
+    char state;
+    sf::Vector2i logicalPostion;
+
+    while (true) {
+        // 1 1 a 0
+        levelFile >> logicalPostion.x; 
+
+        if (logicalPostion.x == 0)
+            break; 
+        
+        levelFile >> logicalPostion.y >> state >> direction;
+        bots.emplace_back(logicalPostion, state, direction, botTextures[currentTextureSet], tileMap);
         currentTextureSet = (currentTextureSet + 1) % 4;
     }
 }

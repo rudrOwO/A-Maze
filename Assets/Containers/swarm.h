@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <fstream>
 #include <string>
 #include "../bot.h"
 
@@ -15,7 +16,7 @@ private:
     Tile_matrix& tileMap; 
     
 public:
-    Swarm (const std::vector<std::string>& botMatrix, Tile_matrix& tileMap);
+    Swarm (std::ifstream& levelFile, Tile_matrix& tileMap);
     void draw ();
     void pollAction();
     void checkStatus();

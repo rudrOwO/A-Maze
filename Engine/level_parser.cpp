@@ -25,28 +25,32 @@ void loadLevel (int levelNumber, Asset_collection& assets)
     std::vector<std:: string> dataMatrix, initializerMatrix;  // Matrix for storing data written on tiles
 
     // Extracting the tile data matrix from Level file
-    while (std::getline(levelFile, rowBuffer)) {
-        if (rowBuffer == "")
+    while (levelFile >> rowBuffer) {
+        if (rowBuffer == ">>")
             break;
 
         dataMatrix.push_back(rowBuffer);
     }
     
     // Extracting the initializer matrix from the file
-    while (std::getline(levelFile, rowBuffer)) {
-        if (rowBuffer == "")
+    while (levelFile >> rowBuffer) {
+        if (rowBuffer == ">>")
             break;
 
         initializerMatrix.push_back(rowBuffer);
     }
 
+    assets.tileMap = new Tile_matrix(dataMatrix, initializerMatrix);
 
-/**************************
+/*************************
 *  PARSING BOT-MATRIX    *
 **************************/
     
-
-    assets.tileMap = new Tile_matrix(dataMatrix, initializerMatrix);
+    assets.swarm = new Swarm(levelFile, *assets.tileMap);
     
+/*************************
+*    PARSING THE DECK    *
+**************************/
+
     levelFile.close();
 }
