@@ -26,12 +26,7 @@ private:
     std::vector<sf::RectangleShape> sprites;
     sf::Vector2f position;
     sf::Vector2i logicalPosition;
-    std::deque<Action> actionQueue = {
-        {Action::move, 3},
-        {Action::turn, 1},
-        {Action::move, 1},
-        {Action::write, '3'}
-    };
+    std::deque<Action> actionQueue;
 
     void (*isometricMove[4]) (sf::Vector2f&, int) = {
         isometricIncrementX, 

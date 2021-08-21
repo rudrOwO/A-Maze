@@ -15,7 +15,7 @@ struct Asset_collection
 {
     Tile_matrix* tileMap;
     Swarm* swarm;
-    // Deck*
+    // Deck deck*
 
     Palette* colorGuide;
     Simulator* simulator;

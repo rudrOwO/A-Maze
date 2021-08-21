@@ -24,7 +24,7 @@ Bot::Bot (sf::Vector2i logicalPosition, char state, int direction, const std::ve
 
 Bot::~Bot ()
 {
-    // calling delete[] sizeof(Bot) may result in unwanted behaviour
+    // Will implement destructors later
 }
 
 
@@ -81,9 +81,9 @@ void Bot::move ()
 
     // Logical position update
     switch (direction) {
-        case 0: ++logicalPosition.x; break;
-        case 1: ++logicalPosition.y; break;
-        case 2: --logicalPosition.x; break;
+        case 0:  ++logicalPosition.x; break;
+        case 1:  ++logicalPosition.y; break;
+        case 2:  --logicalPosition.x; break;
         default: --logicalPosition.y;
     }
 

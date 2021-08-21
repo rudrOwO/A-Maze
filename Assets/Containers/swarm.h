@@ -20,5 +20,4 @@ public:
     void draw ();
     void pollActions();
     void checkStatus();
-    //Bot& operator[] (int index);
 };

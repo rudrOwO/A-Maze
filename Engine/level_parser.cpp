@@ -5,8 +5,10 @@
 #include "assets.h"
 
 
-void loadLevel (int levelNumber, Asset_collection& assets)
+void loadLevel (int levelNumber, Asset_collection& assets, sf::Font& firaCode)
 {       
+
+    firaCode.loadFromFile("Fonts/FiraCode-Regular.woff");
 
     // These don't need any parsing for initialization
     assets.colorGuide = new Palette();

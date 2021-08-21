@@ -1,6 +1,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "palette.h"
 extern sf::RenderWindow window;
+extern sf::Font firaCode;
 
 
 char Palette::currentData = '0';
@@ -26,8 +27,6 @@ Palette::Palette ():
     origin(0.f, (window.getSize().y - 10.f * Palette::unit) / 2.f)
 
 {
-    firaCode.loadFromFile("Fonts/FiraCode-Regular.woff"); 
-
     sf::Vector2f currentRectanglePos(origin);
     sf::Text fillerText;
     sf::RectangleShape fillerShape(sf::Vector2f(Palette::unit, Palette::unit));

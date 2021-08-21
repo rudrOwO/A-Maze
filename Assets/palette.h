@@ -12,7 +12,6 @@ private:
     static char currentData;
     const char drawSequence[9] = {'*', '0', '1', '2', '3', '4', '5', '6', '7'};
     sf::Color whiteBorder;
-    sf::Font firaCode;
     sf::Vector2f origin;
     std::vector<std::pair<sf::RectangleShape, sf::Text>> shapeWithText;
 

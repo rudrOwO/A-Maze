@@ -3,7 +3,7 @@ extern sf::Window window;
 
 
 Swarm::Swarm (std::ifstream& levelFile, Tile_matrix& tileMap):
-    collisionCheck(std::vector<std::vector<int>>(100, std::vector<int>(100, 0))),
+    collisionCheck(std::vector<std::vector<int>>(60, std::vector<int>(60, 0))),
     botTextures(4, std::vector<sf::Texture*>(4)),
     tileMap(tileMap)
 
@@ -22,14 +22,12 @@ Swarm::Swarm (std::ifstream& levelFile, Tile_matrix& tileMap):
         }
     }
 
-    
     // construct bots from botMatrix
     int currentTextureSet = 0, direction;
     char state;
     sf::Vector2i logicalPostion;
 
     while (true) {
-        // 1 1 a 0
         levelFile >> logicalPostion.x; 
 
         if (logicalPostion.x == 0)
@@ -54,6 +52,7 @@ void Swarm::pollActions ()
     for (auto& bot : bots) {
         bot->pollActionQueue();
 
+        // Updating Collision check; since there is possibitllity of a change in position upon polling the bots for actions
         const auto& logicalPos = bot->getLogicalPosition(); 
         ++collisionCheck[logicalPos.y][logicalPos.x];
     }
@@ -62,7 +61,7 @@ void Swarm::pollActions ()
 
 void Swarm::checkStatus ()
 {
-    // Check Out-of-Bounds; Mutual Collision; and destination status; 
+    // Check Out-of-Bounds; Mutual Collision; and Destination Status; 
     for (int i = 0; i < bots.size(); ++i) {
         auto& bot = bots[i];
         
@@ -94,9 +93,3 @@ void Swarm::checkStatus ()
         }
     }
 }
-
-
-//Bot& Swarm::operator[] (int index)
-//{
-//    return bots[index];
-//}

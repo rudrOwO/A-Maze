@@ -12,7 +12,7 @@ Tile_matrix::Tile_matrix (const std::vector<std::string>& dataMatrix, const std:
 
 {
     // Calulating the isometric position of the first tile in the matrix (0, 0)
-    float reservedWidth = window.getSize().x * (152.f / 195.f), 
+    float reservedWidth = window.getSize().x * (4.f / 5.f) - (window.getSize().y / 15.f),
           initialX = 0.5f * (reservedWidth - (rowCount + colCount) * Tile::unit) + (1.f / 15.f) * window.getSize().x + rowCount * Tile::unit,
           initialY = 0.5f * (window.getSize().y - 0.5f * (rowCount + colCount) * Tile::unit) + 0.5f * Tile::unit;
 
