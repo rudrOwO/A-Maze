@@ -3,11 +3,12 @@
 #include <vector>
 #include <string>
 #include "assets.h"
+extern Asset_collection assets;
+extern sf::Font firaCode;
 
 
-void loadLevel (int levelNumber, Asset_collection& assets, sf::Font& firaCode)
+void loadLevel (int levelNumber)
 {       
-
     firaCode.loadFromFile("Fonts/FiraCode-Regular.woff");
 
     // These don't need any parsing for initialization
@@ -48,7 +49,29 @@ void loadLevel (int levelNumber, Asset_collection& assets, sf::Font& firaCode)
 *  PARSING BOT-MATRIX    *
 **************************/
     
-    assets.swarm = new Swarm(levelFile, *assets.tileMap);
+    assets.swarm = new Swarm(*assets.tileMap);
+    
+    int currentTextureSet = 0, direction;
+    char state;
+    sf::Vector2i logicalPostion;
+
+    while (true) {
+        levelFile >> logicalPostion.x; 
+
+        if (logicalPostion.x == 0)
+            break; 
+        
+        levelFile >> logicalPostion.y >> state >> direction;
+
+        assets.swarm->bots.push_back(new Bot(
+            logicalPostion, state, direction, 
+            assets.swarm->botTextures[currentTextureSet], 
+            assets.swarm->tileMap
+        ));
+
+        currentTextureSet = (currentTextureSet + 1) % 4;
+    }
+    
     
 /*************************
 *    PARSING THE DECK    *

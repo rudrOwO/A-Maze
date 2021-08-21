@@ -16,7 +16,7 @@
 ************************************************************/
 
 
-void loadLevel (int levelNumber, Asset_collection&, sf::Font&);
+void loadLevel (int levelNumber);
 
 
 // These are all the resources you need for the game
@@ -32,7 +32,7 @@ int main()
 {
     window.setFramerateLimit(60);
 
-    loadLevel(0, assets, firaCode);
+    loadLevel(0);
 
 
     while (window.isOpen()) {

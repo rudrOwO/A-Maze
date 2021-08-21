@@ -16,8 +16,10 @@ private:
     Tile_matrix& tileMap; 
     
 public:
-    Swarm (std::ifstream& levelFile, Tile_matrix& tileMap);
+    Swarm (Tile_matrix& tileMap);
     void draw ();
     void pollActions();
     void checkStatus();
+    
+    friend void loadLevel (int levelNumber);
 };
