@@ -2,10 +2,10 @@
 
 
 const std::unordered_map<std::string, int> Card::tokenToActionType = {
-    {"move", Bot::Action::move},
-    {"turn", Bot::Action::turn},
-    {"write", Bot::Action::write},
-    {"state", Bot::Action::setState}
+    {"move",  Action::move},
+    {"turn",  Action::turn},
+    {"write", Action::write},
+    {"state", Action::setState}
 };
 
 

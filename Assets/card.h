@@ -1,10 +1,10 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "bot.h"
 #include <vector>
 #include <unordered_map>
 #include <deque>
 #include <string>
+#include "action.h"
 extern sf::RenderWindow window;
 extern sf::Font firaCode;
 
@@ -16,12 +16,12 @@ private:
     struct Command
     {
         bool isLocked, isScopped;
-        Bot::Action action;
+        Action action;
         sf::Text drawToScreen;
     };
     int lineEditor = 0;
     std::vector<Command> code;
-    std::unordered_map<char, std::deque<Bot::Action>> dataToActionQ; 
+    std::unordered_map<char, std::deque<Action>> dataToActionQ; 
     static const std::unordered_map<std::string, int> tokenToActionType;
 
 public:    

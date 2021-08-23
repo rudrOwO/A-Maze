@@ -3,19 +3,13 @@
 #include <deque>
 #include <utility>
 #include "Containers/tile_matrix.h"
+#include "Containers/deck.h"
 #include "../Engine/isometry.h"
+#include "action.h"
 
 
 class Bot
 {
-public:
-    struct Action 
-    { 
-        enum { move, turn, write, setState };
-        int type, argument; 
-    };
-
-
 private:
     static constexpr float unit = 55.f;
     int direction; 
