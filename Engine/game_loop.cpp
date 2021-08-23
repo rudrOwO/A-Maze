@@ -20,8 +20,8 @@ void loadLevel (int levelNumber);
 
 
 // These are all the resources you need for the game
-sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "The Imitation Game", sf::Style::Fullscreen);
-//sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Potato"/*, sf::Style::Fullscreen */);
+sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Botomata", sf::Style::Fullscreen);
+//sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Botomata"/*, sf::Style::Fullscreen */);
 Asset_collection assets;
 sf::Color backgroundColor(0x232834ff);
 sf::Font firaCode;
@@ -47,7 +47,7 @@ int main()
                         window.close(); 
                         break;
                     } else {
-                        // Delegate to deck input control
+                        // deck->onKeyPress(); 
                     }
                       
                 // Handling all mouse clicks
@@ -71,7 +71,7 @@ int main()
         assets.tileMap->draw(); 
         assets.swarm->draw();
 
-        std::this_thread::sleep_for(tickRate);
+        //std::this_thread::sleep_for(tickRate);
      
         window.display();
     }

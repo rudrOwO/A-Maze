@@ -4,7 +4,6 @@
 #include <utility>
 #include "Containers/tile_matrix.h"
 #include "../Engine/isometry.h"
-/* STATE COMMAND IS EFFECTiVE IMMEDIATELY */
 
 
 class Bot
@@ -40,8 +39,6 @@ private:
     void turn ();
     void write (char newData);
     void setState (char newState);
-    std::deque<Action> getActionQueue (int state, int data); // From the Interpreter
-
 
 public:
     Bot (sf::Vector2i logicalPosition, char state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix& tileMap);
@@ -49,7 +46,7 @@ public:
 
     bool isBotDEAD ();
     bool isBotDONE ();
-    void pollActionQueue ();  // continuously check actionQueue for actions
+    void pollActionQueue ();  
     void draw ();
     const sf::Vector2i& getLogicalPosition ();
 };

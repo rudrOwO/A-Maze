@@ -1,11 +1,10 @@
 #include "swarm.h"
-extern sf::Window window;
+extern sf::RenderWindow window;
 
 
-Swarm::Swarm (Tile_matrix& tileMap):
+Swarm::Swarm ():
     collisionCheck(std::vector<std::vector<int>>(60, std::vector<int>(60, 0))),
-    botTextures(4, std::vector<sf::Texture*>(4)),
-    tileMap(tileMap)
+    botTextures(4, std::vector<sf::Texture*>(4))
 
 {
     // Loading all the bot textures for the swarm
@@ -48,14 +47,14 @@ void Swarm::checkStatus ()
 {
     // Check Out-of-Bounds; Mutual Collision; and Destination Status; 
     for (int i = 0; i < bots.size(); ++i) {
-        auto& bot = bots[i];
+        Bot* &bot = bots[i];
         
         if (bot->isBotDEAD()) {
             Simulator::setStatus(Simulator::gameOver);
             return;
         }
 
-        const auto& logicalPos = bot->getLogicalPosition(); 
+        const sf::Vector2i& logicalPos = bot->getLogicalPosition(); 
 
         if (collisionCheck[logicalPos.y][logicalPos.x] > 1) {
             Simulator::setStatus(Simulator::gameOver);

@@ -19,6 +19,8 @@ Bot::Bot (sf::Vector2i logicalPosition, char state, int direction, const std::ve
         sprites[i].setPosition(position);
         sprites[i].setTexture(texturePointers[i]);
     }
+    
+    read();
 }
 
 

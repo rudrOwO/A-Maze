@@ -9,6 +9,7 @@ extern sf::Font firaCode;
 
 void loadLevel (int levelNumber)
 {       
+    // Loading a global font that is used for all sorts of text display
     firaCode.loadFromFile("Fonts/FiraCode-Regular.woff");
 
     // These don't need any parsing for initialization
@@ -29,7 +30,7 @@ void loadLevel (int levelNumber)
 
     // Extracting the tile data matrix from Level file
     while (levelFile >> rowBuffer) {
-        if (rowBuffer == ">>")
+        if (rowBuffer == "<<")
             break;
 
         dataMatrix.push_back(rowBuffer);
@@ -37,7 +38,7 @@ void loadLevel (int levelNumber)
     
     // Extracting the initializer matrix from the file
     while (levelFile >> rowBuffer) {
-        if (rowBuffer == ">>")
+        if (rowBuffer == "<<")
             break;
 
         initializerMatrix.push_back(rowBuffer);
@@ -47,17 +48,15 @@ void loadLevel (int levelNumber)
 
 /*************************
 *  PARSING BOT-MATRIX    *
-**************************/
+*************************/
     
-    assets.swarm = new Swarm(*assets.tileMap);
+    assets.swarm = new Swarm();
     
     int currentTextureSet = 0, direction;
     char state;
     sf::Vector2i logicalPostion;
 
-    while (true) {
-        levelFile >> logicalPostion.x; 
-
+    while (levelFile >> logicalPostion.x) {
         if (logicalPostion.x == 0)
             break; 
         
@@ -66,16 +65,48 @@ void loadLevel (int levelNumber)
         assets.swarm->bots.push_back(new Bot(
             logicalPostion, state, direction, 
             assets.swarm->botTextures[currentTextureSet], 
-            assets.swarm->tileMap
+            *assets.tileMap
         ));
 
         currentTextureSet = (currentTextureSet + 1) % 4;
     }
     
-    
 /*************************
 *    PARSING THE DECK    *
-**************************/
+*************************/
+    assets.deck = new Deck();
+     
+    std::string token;
+    int looper;
+    char argument;
+    bool isScopped = false;
+    Card* currentCard;
+        
+    while (levelFile >> token) {
+        if (token.size() == 1) {
+            assets.deck->cards.insert({
+                token[0], currentCard = new Card()
+            });
 
+        } else if (token == "move" or token == "turn") {
+            levelFile >> looper;
+            currentCard->push_line(true, isScopped, token, looper);
+
+        } else if (token == "<<") {
+            currentCard->push_line(false, isScopped, "");
+        
+        } else if (token == ">>") {
+            isScopped = true;
+            continue;
+             
+        } else {
+            levelFile >> argument;
+            currentCard->push_line(true, isScopped, token, argument);
+        } 
+        
+        isScopped = false;
+    };
+    
+    // Parsing ends; All assets instantiated and populated with appropariate contents    
     levelFile.close();
 }

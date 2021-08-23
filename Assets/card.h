@@ -2,9 +2,9 @@
 #include <SFML/Graphics.hpp>
 #include "bot.h"
 #include <vector>
+#include <unordered_map>
 #include <deque>
 #include <string>
-#include <fstream>
 extern sf::RenderWindow window;
 extern sf::Font firaCode;
 
@@ -12,19 +12,22 @@ extern sf::Font firaCode;
 class Card
 {
 private:
-    struct line
+    char currentScope;
+    struct Command
     {
-        std::string command;
-        int argument;
-        sf::Text drawable;
+        bool isLocked, isScopped;
+        Bot::Action action;
+        sf::Text drawToScreen;
     };
-    
-    int linePointer = 0;
-    std::vector<line> code;
-    std::vector<bool> isLocked;
-    std::vector<std::deque<Bot::Action>> actionMap; 
+    int lineEditor = 0;
+    std::vector<Command> code;
+    std::unordered_map<char, std::deque<Bot::Action>> dataToActionQ; 
+    static const std::unordered_map<std::string, int> tokenToActionType;
 
 public:    
     Card ();
     void onKeyPress (sf::Event& event);
+    void draw ();
+    void interpret ();
+    void push_line (bool isLocked, bool isScopped, const std::string& token, int arg = 0);
 };

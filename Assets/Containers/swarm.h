@@ -13,10 +13,9 @@ private:
     std::vector<Bot*> bots;
     std::vector<std::vector<int>> collisionCheck;
     std::vector<std::vector<sf::Texture*>> botTextures; 
-    Tile_matrix& tileMap; 
     
 public:
-    Swarm (Tile_matrix& tileMap);
+    Swarm ();
     void draw ();
     void pollActions();
     void checkStatus();
