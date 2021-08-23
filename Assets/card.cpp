@@ -10,20 +10,52 @@ const std::unordered_map<std::string, int> Card::tokenToActionType = {
 
 
 Card::Card ():
-    dataToActionQ(9) 
+    dataToActionQueue(9) 
     
+{}
+
+
+void Card::push_line(bool isLocked, bool isScopped, const std::string& token, int arg)
+{
+    code.push_back({ isLocked, isScopped, token, arg, sf::Text(token, firaCode, arg) });
+}
+
+
+void Card::onKeyPress (sf::Event& event)
 {
     
 }
 
 
-void Card::push_line(bool isLocked, bool isScopped, const std::string& token, int arg)
+void Card::interpret ()
 {
-    if (token == "if")
-        // exceptional handle
-        ;
-    else if (token == "")
-        // exceptional handle
-        ;
+    for (const auto& line : code) {
+        if (line.token == "if")
+            currentScope = line.arg - '0';
 
+        else if (line.token != "") {
+            if (not line.isScopped) {
+                for (int i = 0; i < 9; ++i)
+                    dataToActionQueue[i].push_back({ tokenToActionType.at(line.token), line.arg });
+
+            } else {
+                dataToActionQueue[currentScope].push_back({ tokenToActionType.at(line.token), line.arg });
+            }
+        }
+    }
+}
+
+
+const std::deque<Action>& Card::getActionQueue (char data) const
+{
+    if (data == '*')
+        data = '8';
+
+    return dataToActionQueue[data - '0'];
+}
+
+
+void Card::draw ()
+{
+    
 }

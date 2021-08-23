@@ -65,7 +65,7 @@ void loadLevel (int levelNumber)
         assets.swarm->bots.push_back(new Bot(
             logicalPostion, state, direction, 
             assets.swarm->botTextures[currentTextureSet], 
-            *assets.tileMap
+            assets.tileMap, assets.deck
         ));
 
         currentTextureSet = (currentTextureSet + 1) % 4;

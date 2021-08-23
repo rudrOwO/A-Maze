@@ -14,7 +14,8 @@ private:
     static constexpr float unit = 55.f;
     int direction; 
     char state, data;
-    Tile_matrix& tileMap;
+    Tile_matrix* &tileMap;
+    Deck* &deck;
     const std::vector<sf::Texture*>& texturePointers;
     std::vector<sf::RectangleShape> sprites;
     sf::Vector2f position;
@@ -35,7 +36,7 @@ private:
     void setState (char newState);
 
 public:
-    Bot (sf::Vector2i logicalPosition, char state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix& tileMap);
+    Bot (sf::Vector2i logicalPosition, char state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix* &tileMap, Deck* &deck);
     ~Bot ();
 
     bool isBotDEAD ();

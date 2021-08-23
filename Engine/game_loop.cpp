@@ -9,7 +9,7 @@
 /************************************************************
 *   DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS     *
 *************************************************************
-* REFACTOR LEVEL PARSER FOR BETTER EXTRACTION WITH IFSTREAM *
+*           HANDLE INPUT IN A DIFFERENT THREAD ?            *
 *************************************************************
 * 1/15 PART OF Y AXIS IS RESERVED FOR PALETTE ON THE LEFT   *
 *  1/5 OF X AXIS IS RESERVED FOR DECK ON THE RIGHT          *
@@ -31,7 +31,6 @@ std::chrono::duration<unsigned int, std::milli> tickRate(450);
 int main()
 {
     window.setFramerateLimit(60);
-
     loadLevel(0);
 
 
@@ -42,37 +41,48 @@ int main()
         while (window.pollEvent(event)) {
             switch (event.type) {
                 case sf::Event::KeyPressed:
-                    // Using 'Escape' to close window
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))  // Using 'Escape' to close window
                         window.close(); 
-                        break;
-                    } else {
-                        // deck->onKeyPress(); 
-                    }
+
+                    else if (Simulator::getStatus() == Simulator::paused)
+                        //assets.deck->onKeyPress(event); 
+                        ;
+
+                    break;
                       
                 // Handling all mouse clicks
                 case sf::Event::MouseButtonPressed:
                     if (assets.simulator->onMouseClick())
                         break;
-                    if (assets.tileMap->onTileClick())
-                        break;
-                    if (assets.colorGuide->onPaletteClick())
-                        break;
+
+                    if (Simulator::getStatus() == Simulator::paused) {
+                        if (assets.tileMap->onTileClick())
+                            break;
+
+                        if (assets.colorGuide->onPaletteClick())
+                            break;
+                    }
             }
         }
 
         window.clear(backgroundColor); 
-        
-        assets.swarm->pollActions();
-        assets.swarm->checkStatus();
 
-        assets.simulator->draw();
+        if (Simulator::getStatus() == Simulator::running) { 
+            if (not assets.deck->isInterpreted())
+                assets.deck->interpretAll();
+
+            assets.swarm->pollActions();
+            assets.swarm->checkStatus();
+
+            std::this_thread::sleep_for(tickRate);
+        }
+        
         assets.colorGuide->draw();
+        assets.simulator->draw();
         assets.tileMap->draw(); 
         assets.swarm->draw();
+        //assets.deck->draw();
 
-        //std::this_thread::sleep_for(tickRate);
-     
         window.display();
     }
 

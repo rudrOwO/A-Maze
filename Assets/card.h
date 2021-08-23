@@ -13,15 +13,17 @@ class Card
 {
 private:
     char currentScope;
-    struct Command
+    const float fontSize = 20.f;
+    struct Line
     {
         bool isLocked, isScopped;
-        Action action;
+        std::string token;
+        int arg;
         sf::Text drawToScreen;
     };
-    int lineEditor = 0;
-    std::vector<Command> code;
-    std::unordered_map<char, std::deque<Action>> dataToActionQ; 
+    int lineEditor = 0, lockSize = 0;
+    std::vector<Line> code;
+    std::vector<std::deque<Action>> dataToActionQueue; 
     static const std::unordered_map<std::string, int> tokenToActionType;
 
 public:    
@@ -30,4 +32,5 @@ public:
     void draw ();
     void interpret ();
     void push_line (bool isLocked, bool isScopped, const std::string& token, int arg = 0);
+    const std::deque<Action>& getActionQueue (char data) const;
 };
