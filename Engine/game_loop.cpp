@@ -7,9 +7,13 @@
 
 
 /************************************************************
-*   DON'T FORGET TO IMPLEMENT DESTRUCTORS OF ALL ASSETS     *
+*  MAKE READING SEAMLESS WITH THE GAME TICK ? I.E. NO DELAY *
+*************************************************************
+*            IMPLEMENT DESTRUCTORS OF ALL ASSETS            *
 *************************************************************
 *           HANDLE INPUT IN A DIFFERENT THREAD ?            *
+*************************************************************
+*         OVERLOAD PALETTE CLASS AND CREATE A MENU          *
 *************************************************************
 * 1/15 PART OF Y AXIS IS RESERVED FOR PALETTE ON THE LEFT   *
 *  1/5 OF X AXIS IS RESERVED FOR DECK ON THE RIGHT          *

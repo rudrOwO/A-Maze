@@ -13,7 +13,7 @@ class Card
 {
 private:
     char currentScope;
-    const float fontSize = 20.f;
+    const float fontSize = 21.f;
     struct Line
     {
         bool isLocked, isScopped;
