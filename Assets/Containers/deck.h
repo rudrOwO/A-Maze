@@ -13,14 +13,18 @@ class Deck
 {
 private:
     bool interpretStat = false;
-    float width = window.getSize().x / 5.f, height = window.getSize().y;
-    sf::Color grey, green, red, blue_grey;
-    std::vector<sf::Text> deckInfo;
+    float width = window.getSize().x / 5.f;
+    sf::Vector2f startPosition;
+    sf::Color green, red;
+    std::string displayMessage;
+    sf::Text displayMessageText;
     std::vector<sf::RectangleShape> deckShapes;
     std::map<char, Card*> cards;
     std::map<char, Card*>::iterator nowEditing;
     
 public:
+    static constexpr float fontSize = 20.f;
+
     Deck (); 
     void onKeyPress (sf::Event& event);
     void draw ();

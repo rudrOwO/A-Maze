@@ -11,6 +11,8 @@
 *************************************************************
 *            IMPLEMENT DESTRUCTORS OF ALL ASSETS            *
 *************************************************************
+*              IMPLEMENT BOT STATE INDICATOR                *
+*************************************************************
 *           HANDLE INPUT IN A DIFFERENT THREAD ?            *
 *************************************************************
 *         OVERLOAD PALETTE CLASS AND CREATE A MENU          *
@@ -49,8 +51,7 @@ int main()
                         window.close(); 
 
                     else if (Simulator::getStatus() == Simulator::paused)
-                        //assets.deck->onKeyPress(event); 
-                        ;
+                        assets.deck->onKeyPress(event); 
 
                     break;
                       
@@ -85,7 +86,7 @@ int main()
         assets.simulator->draw();
         assets.tileMap->draw(); 
         assets.swarm->draw();
-        //assets.deck->draw();
+        assets.deck->draw();
 
         window.display();
     }

@@ -88,6 +88,8 @@ void loadLevel (int levelNumber)
                 token[0], currentCard = new Card()
             });
 
+            assets.deck->displayMessage.insert(22, token + ", "); 
+
         } else if (token == "move" or token == "turn") {
             levelFile >> looper;
             currentCard->push_line(true, isScopped, token, looper);

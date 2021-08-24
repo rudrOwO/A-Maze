@@ -10,7 +10,9 @@ const std::unordered_map<std::string, int> Card::tokenToActionType = {
 
 
 Card::Card ():
-    dataToActionQueue(9) 
+    dataToActionQueue(9) ,
+    grey(Palette::colors.at('*').first),
+    blue_grey(Palette::colors.at('5').first)
     
 {}
 

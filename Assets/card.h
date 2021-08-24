@@ -5,6 +5,7 @@
 #include <deque>
 #include <string>
 #include "action.h"
+#include "palette.h"
 extern sf::RenderWindow window;
 extern sf::Font firaCode;
 
@@ -13,7 +14,6 @@ class Card
 {
 private:
     char currentScope;
-    const float fontSize = 21.f;
     struct Line
     {
         bool isLocked, isScopped;
@@ -21,10 +21,14 @@ private:
         int arg;
         sf::Text drawToScreen;
     };
-    int lineEditor = 0, lockSize = 0;
+    int lineEditorPos = 0;
     std::vector<Line> code;
     std::vector<std::deque<Action>> dataToActionQueue; 
+    sf::Color grey, blue_grey;
+    sf::RectangleShape cardBox;
+    sf::RectangleShape lineEditorBox;
     static const std::unordered_map<std::string, int> tokenToActionType;
+
 
 public:    
     Card ();
