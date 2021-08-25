@@ -13,6 +13,7 @@ class Deck
 {
 private:
     bool interpretStat = false;
+    unsigned int fontSize = 21;
     float width = window.getSize().x / 5.f;
     sf::Vector2f startPosition;
     sf::Color green, red;
@@ -23,8 +24,6 @@ private:
     std::map<char, Card*>::iterator nowEditing;
     
 public:
-    static constexpr float fontSize = 20.f;
-
     Deck (); 
     void onKeyPress (sf::Event& event);
     void draw ();

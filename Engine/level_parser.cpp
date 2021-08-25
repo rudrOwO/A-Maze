@@ -25,7 +25,6 @@ void loadLevel (int levelNumber)
 /**************************
 *  PARSING TILE-MATRIX    *
 **************************/
-    
     std::vector<std:: string> dataMatrix, initializerMatrix;  // Matrix for storing data written on tiles
 
     // Extracting the tile data matrix from Level file
@@ -49,7 +48,6 @@ void loadLevel (int levelNumber)
 /*************************
 *  PARSING BOT-MATRIX    *
 *************************/
-    
     assets.swarm = new Swarm();
     
     int currentTextureSet = 0, direction;
@@ -88,7 +86,7 @@ void loadLevel (int levelNumber)
                 token[0], currentCard = new Card()
             });
 
-            assets.deck->displayMessage.insert(22, token + ", "); 
+            assets.deck->displayMessage.insert(25, token + ","); 
 
         } else if (token == "move" or token == "turn") {
             levelFile >> looper;
@@ -108,6 +106,8 @@ void loadLevel (int levelNumber)
         
         isScopped = false;
     };
+
+    assets.deck->nowEditing = assets.deck->cards.begin();
     
     // Parsing ends; All assets instantiated and populated with appropariate contents    
     levelFile.close();

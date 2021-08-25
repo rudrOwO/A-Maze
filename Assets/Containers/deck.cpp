@@ -1,13 +1,12 @@
 #include "deck.h"
 extern sf::RenderWindow window;
 
-//const sf::Vector2f Deck::startPosition(window.getSize().x * (4.f / 5.f), 1.f);
+float cardDrawStartY;
 
 Deck::Deck ():
     startPosition(window.getSize().x * (4.f / 5.f), 2.f),
-    displayMessage("         < On Deck >\n \n\n     Now Editing : State A"),
+    displayMessage("     < States On Deck >\n \n\n     Now Editing : State  "),
     deckShapes(2),
-    nowEditing(cards.begin()),
     green(Palette::colors.at('3').first),
     red(Palette::colors.at('7').first)
 
@@ -16,7 +15,7 @@ Deck::Deck ():
     displayMessageText.setCharacterSize(Deck::fontSize);
     displayMessageText.setPosition(Deck::startPosition + sf::Vector2f(0.f, 1.f));
 
-    float textHeight = 3 * displayMessageText.getCharacterSize() + 2 * displayMessageText.getLineSpacing();
+    float textHeight = 3 * fontSize + 2 * displayMessageText.getLineSpacing();
     
     deckShapes[0].setPosition(Deck::startPosition);
     deckShapes[0].setSize({width, textHeight});
@@ -25,6 +24,8 @@ Deck::Deck ():
     deckShapes[1].setPosition(Deck::startPosition + sf::Vector2f(0.f, textHeight));
     deckShapes[1].setSize({width, textHeight * 0.8f});
     deckShapes[1].setFillColor(red);
+    
+    cardDrawStartY = deckShapes[1].getPosition().y + deckShapes[1].getSize().y + 5.f;
 }
 
 
@@ -58,6 +59,7 @@ void Deck::draw ()
     window.draw(deckShapes[0]);
     window.draw(deckShapes[1]);
     window.draw(displayMessageText);
+
     nowEditing->second->draw();
 }
 

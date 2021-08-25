@@ -14,6 +14,8 @@ class Card
 {
 private:
     char currentScope;
+    unsigned int fontSize = 20;
+    float width = window.getSize().x / 5.f, lineSpace = 2.f;
     struct Line
     {
         bool isLocked, isScopped;
@@ -24,11 +26,11 @@ private:
     int lineEditorPos = 0;
     std::vector<Line> code;
     std::vector<std::deque<Action>> dataToActionQueue; 
-    sf::Color grey, blue_grey;
+    sf::Color grey, blue_grey, red;
     sf::RectangleShape cardBox;
     sf::RectangleShape lineEditorBox;
+    sf::Vector2f startPosition;
     static const std::unordered_map<std::string, int> tokenToActionType;
-
 
 public:    
     Card ();

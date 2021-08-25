@@ -1,4 +1,6 @@
 #include "card.h"
+extern sf::RenderWindow window;
+extern float cardDrawStartY;
 
 
 const std::unordered_map<std::string, int> Card::tokenToActionType = {
@@ -10,16 +12,23 @@ const std::unordered_map<std::string, int> Card::tokenToActionType = {
 
 
 Card::Card ():
-    dataToActionQueue(9) ,
+    dataToActionQueue(9),
+    cardBox({width, 0.f}),
+    startPosition(window.getSize().x * (4.f / 5.f), cardDrawStartY),
+    red(Palette::colors.at('7').first),
     grey(Palette::colors.at('*').first),
     blue_grey(Palette::colors.at('5').first)
     
-{}
+{
+    cardBox.setPosition(startPosition);
+    cardBox.setFillColor(blue_grey);
+}
 
 
 void Card::push_line(bool isLocked, bool isScopped, const std::string& token, int arg)
 {
-    code.push_back({ isLocked, isScopped, token, arg, sf::Text(token, firaCode, arg) });
+    code.push_back({ isLocked, isScopped, token, arg, sf::Text(token, firaCode, 20) });
+    cardBox.setSize({width, cardBox.getSize().y + fontSize + lineSpace});
 }
 
 
@@ -59,5 +68,8 @@ const std::deque<Action>& Card::getActionQueue (char data) const
 
 void Card::draw ()
 {
+    window.draw(cardBox);
     
+    for (const auto& line : code)
+        window.draw(line.drawToScreen);
 }

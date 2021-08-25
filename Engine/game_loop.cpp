@@ -18,7 +18,7 @@
 *         OVERLOAD PALETTE CLASS AND CREATE A MENU          *
 *************************************************************
 * 1/15 PART OF Y AXIS IS RESERVED FOR PALETTE ON THE LEFT   *
-*  1/5 OF X AXIS IS RESERVED FOR DECK ON THE RIGHT          *
+*     1/5 OF X AXIS IS RESERVED FOR DECK ON THE RIGHT       *
 ************************************************************/
 
 
