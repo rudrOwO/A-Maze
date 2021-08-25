@@ -42,12 +42,12 @@ void Card::push_line (bool isScopped, const std::pair<std::string, std::string>&
         currentLine.drawToScreen.setCharacterSize(fontSize + 1);
     }
 
-    formatCode(code.size() - 1, isScopped, token);
+    formatCode(isScopped, token);
     cardBox.setSize({width, cardBox.getSize().y + fontSize + lineSpace});
 }
 
 
-void Card::formatCode (int lineIndex, bool isScopped, const std::pair<std::string, std::string>& token)
+void Card::formatCode (bool isScopped, const std::pair<std::string, std::string>& token)
 {
     Action pushAction;
     
@@ -59,7 +59,7 @@ void Card::formatCode (int lineIndex, bool isScopped, const std::pair<std::strin
     else if (token.first == "write" or token.first == "state" or token.first == "if")
         pushAction.argument = token.second[0];
     
-    Line &currentLine = code[lineIndex];
+    Line &currentLine = code.back();
 
     currentLine.isScopped = isScopped;
     currentLine.token = token;
@@ -71,14 +71,98 @@ void Card::formatCode (int lineIndex, bool isScopped, const std::pair<std::strin
 }
 
 
+void Card::formatCode ()
+{
+    Action pushAction;
+    Line &currentLine = code[lineEditorIndex];
+    
+    pushAction.type = tokenToActionType.at(currentLine.token.first);
+
+    if (currentLine.token.first == "move" or currentLine.token.first == "turn")
+        pushAction.argument = std::stoi(currentLine.token.second);
+    else if (currentLine.token.first == "write" or currentLine.token.first == "state" or currentLine.token.first == "if")
+        pushAction.argument = currentLine.token.second[0];
+    
+    currentLine.action = pushAction;
+}
+
+
 void Card::onKeyPress (sf::Event& event)
 {
+    //code[lineEditorIndex].isLocked = false;
+    
     switch (event.key.code) {
         case sf::Keyboard::Down:
-            if (lineEditorIndex < code.size() - 1)
+            if (lineEditorIndex < code.size() - 1) {
                 ++lineEditorIndex;
+                cursor.move({0.f, fontSize + lineSpace});
+            }
+            break;
 
+        case sf::Keyboard::Up:
+            if (lineEditorIndex > 0) {
+                --lineEditorIndex;
+                cursor.move({0.f, -(fontSize + lineSpace)});
+            }
+            break;
+        
+        case sf::Keyboard::BackSpace:
+            if (not code[lineEditorIndex].isLocked) {
+                code[lineEditorIndex].token.first = "";    
+                code[lineEditorIndex].token.second = "";    
+            }
+            secondWordSelected = false;
+            break;
+
+        case sf::Keyboard::Tab:
+            if (not code[lineEditorIndex].isLocked)
+                code[lineEditorIndex].isScopped = not code[lineEditorIndex].isScopped;
+            break;
+        
+        case sf::Keyboard::Return:
+            secondWordSelected = false;
+            formatCode();
+            if (lineEditorIndex < code.size() - 1) {
+                ++lineEditorIndex;
+                cursor.move({0.f, fontSize + lineSpace});
+            }
+            break;
+            
+        default:
+            if (not code[lineEditorIndex].isLocked) {
+                if (event.key.code == sf::Keyboard::Space)
+                    secondWordSelected = true;
+                else { 
+                    int keyCode = event.key.code;
+                    std::string &selectedWord = (secondWordSelected ? code[lineEditorIndex].token.second : code[lineEditorIndex].token.first);
+
+                    if (keyCode < 26)
+                        selectedWord.push_back(keyCode + 'a');
+                    else
+                        selectedWord.push_back(keyCode - 26 + '0');
+                }
+            }
     }
+
+    Line &currentLine = code[lineEditorIndex];
+
+    currentLine.drawToScreen.setString(currentLine.token.first + " " + currentLine.token.second);
+    
+    if (currentLine.isScopped)
+        currentLine.drawToScreen.setPosition({startPosition.x + offSet + indentation, currentLine.drawToScreen.getPosition().y});
+    else
+        currentLine.drawToScreen.setPosition({startPosition.x + offSet, currentLine.drawToScreen.getPosition().y});
+    
+    //if (event.type == sf::Event::TextEntered) {
+    //    std::string &selectedWord = code[lineEditorIndex].token.first;
+    //    
+    //    if (not code[lineEditorIndex].isLocked) {
+    //        if (event.key.code == sf::Keyboard::Space)
+    //            selectedWord = code[lineEditorIndex].token.second;
+    //        
+    //        selectedWord.push_back(static_cast<char>(event.text.unicode));
+    //    }
+    //}
 }
 
 

@@ -10,16 +10,16 @@
 ----0-
 ------
 <<
-1 1 Q 0
+1 1 q 0
 0
-Q
+q
 if 2
->> move 3
+>> move 2
 >> turn 1
 move 2
-state F
+state f
 <<
-F
+f
 <<
 <<
 <<

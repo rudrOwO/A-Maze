@@ -13,6 +13,7 @@ extern sf::Font firaCode;
 class Card
 {
 private:
+    bool secondWordSelected = false;
     char currentScope;
     unsigned int fontSize = 20;
     float width = window.getSize().x / 5.f, lineSpace = 10.f, indentation = 25.f, offSet = 50.f;
@@ -32,7 +33,8 @@ private:
     sf::Vector2f startPosition;
     static const std::unordered_map<std::string, int> tokenToActionType;
 
-    void formatCode (int lineIndex, bool isScopped, const std::pair<std::string, std::string>& token);
+    void formatCode (bool isScopped, const std::pair<std::string, std::string>& token);
+    void formatCode ();
 
 public:    
     Card ();
