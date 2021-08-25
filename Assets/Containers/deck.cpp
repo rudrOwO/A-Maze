@@ -64,12 +64,12 @@ void Deck::draw ()
 }
 
 
-void Deck::interpretAll ()
+void Deck::compileAll ()
 {
     for (const auto& card : cards)
-        card.second->interpret();
+        card.second->compileCode();
     
-    interpretStat = true;
+    compileStat = true;
 }
 
 
@@ -79,7 +79,7 @@ Card* Deck::operator[] (int cardID)
 }
 
 
-bool Deck::isInterpreted ()
+bool Deck::isCompiled ()
 {
-    return interpretStat;
+    return compileStat;
 } 

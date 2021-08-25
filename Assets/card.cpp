@@ -27,10 +27,16 @@ Card::Card ():
 
 void Card::push_line (bool isScopped, const std::pair<std::string, std::string>& token)
 {
-    bool isLocked = (token.first != "");
+    code.push_back(Line());
+    code.back().isLocked = (token.first != "");
+    formatCode(code.size() - 1, isScopped, token);
 
-    
-    
+    cardBox.setSize({width, cardBox.getSize().y + fontSize + lineSpace});
+}
+
+
+void Card::formatCode (int lineIndex, bool isScopped, const std::pair<std::string, std::string>& token)
+{
     Action pushAction;
     
     if (token.first != "if" and token.first != "")
@@ -41,8 +47,10 @@ void Card::push_line (bool isScopped, const std::pair<std::string, std::string>&
     else if (token.first == "write" or token.first == "state" or token.first == "if")
         pushAction.argument = token.second[0];
     
-    code.push_back({ isLocked, isScopped, token, pushAction});
-    cardBox.setSize({width, cardBox.getSize().y + fontSize + lineSpace});
+    code[lineIndex].isScopped = isScopped;
+    code[lineIndex].token = token;
+    code[lineIndex].action = pushAction;
+    code[lineIndex].drawToScreen.setString(token.first + token.second);
 }
 
 
@@ -52,7 +60,7 @@ void Card::onKeyPress (sf::Event& event)
 }
 
 
-void Card::interpret ()
+void Card::compileCode ()
 {
     for (const auto& line : code) {
         if (line.token.first == "if")

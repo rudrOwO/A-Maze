@@ -73,8 +73,8 @@ int main()
         window.clear(backgroundColor); 
 
         if (Simulator::getStatus() == Simulator::running) { 
-            if (not assets.deck->isInterpreted())
-                assets.deck->interpretAll();
+            if (not assets.deck->isCompiled())
+                assets.deck->compileAll();
 
             assets.swarm->pollActions();
             assets.swarm->checkStatus();

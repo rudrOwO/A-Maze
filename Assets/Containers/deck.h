@@ -12,7 +12,7 @@ extern sf::Font firaCode;
 class Deck
 {
 private:
-    bool interpretStat = false;
+    bool compileStat = false;
     unsigned int fontSize = 21;
     float width = window.getSize().x / 5.f;
     sf::Vector2f startPosition;
@@ -27,8 +27,8 @@ public:
     Deck (); 
     void onKeyPress (sf::Event& event);
     void draw ();
-    void interpretAll ();
-    bool isInterpreted ();
+    void compileAll ();
+    bool isCompiled ();
     Card* operator[] (int cardID);
 
     friend void loadLevel (int level);

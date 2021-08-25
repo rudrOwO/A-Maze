@@ -32,11 +32,13 @@ private:
     sf::Vector2f startPosition;
     static const std::unordered_map<std::string, int> tokenToActionType;
 
+    void formatCode (int lineIndex, bool isScopped, const std::pair<std::string, std::string>& token);
+
 public:    
     Card ();
     void onKeyPress (sf::Event& event);
     void draw ();
-    void interpret ();
+    void compileCode ();
     void push_line (bool isScopped, const std::pair<std::string, std::string>& token);
     const std::deque<Action>& getActionQueue (char data) const;
 };
