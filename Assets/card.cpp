@@ -76,10 +76,8 @@ void Card::formatCode ()
     Action pushAction;
     Line &currentLine = code[lineEditorIndex];
     
-    if (tokenToActionType.end() == tokenToActionType.find(currentLine.token.first))
-        return;
-    
-    pushAction.type = tokenToActionType.at(currentLine.token.first);
+    if (currentLine.token.first != "if" and currentLine.token.first != "")
+        pushAction.type = tokenToActionType.at(currentLine.token.first);
 
     if (currentLine.token.first == "move" or currentLine.token.first == "turn")
         pushAction.argument = std::stoi(currentLine.token.second);
