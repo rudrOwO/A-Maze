@@ -27,10 +27,17 @@ Card::Card ():
 
 void Card::push_line (bool isScopped, const std::pair<std::string, std::string>& token)
 {
-    code.push_back(Line());
+    code.push_back({false, false, {"", ""}, {0, 0}, sf::Text("", firaCode, fontSize)});
     code.back().isLocked = (token.first != "");
-    formatCode(code.size() - 1, isScopped, token);
+    
+    if (code.size() == 1)
+        code[0].drawToScreen.setPosition(startPosition + sf::Vector2f(10.f, 0.f));
+    else 
+        code.back().drawToScreen.setPosition(
+            code[0].drawToScreen.getPosition() + sf::Vector2f(0.f, (code.size() - 1) * (fontSize + lineSpace))
+        );
 
+    formatCode(code.size() - 1, isScopped, token);
     cardBox.setSize({width, cardBox.getSize().y + fontSize + lineSpace});
 }
 
@@ -50,7 +57,10 @@ void Card::formatCode (int lineIndex, bool isScopped, const std::pair<std::strin
     code[lineIndex].isScopped = isScopped;
     code[lineIndex].token = token;
     code[lineIndex].action = pushAction;
-    code[lineIndex].drawToScreen.setString(token.first + token.second);
+    code[lineIndex].drawToScreen.setString(token.first + " " + token.second);
+    
+    if (code[lineIndex].isScopped)
+        code[lineIndex].drawToScreen.move({indentation, 0.f});
 }
 
 
