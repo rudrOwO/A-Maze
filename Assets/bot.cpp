@@ -34,31 +34,30 @@ void Bot::pollActionQueue ()
     if (actionQueue.empty()) {
         read();
         actionQueue = (*deck)[state]->getActionQueue(data);
+    } 
 
-    } else {
-        Action &currentAction = actionQueue.front();
-        
-        switch (currentAction.type) {
-            case Action::move:
-                move(); 
-                if (--currentAction.argument == 0)
-                    actionQueue.pop_front();
-                break;
-
-            case Action::turn:
-                turn(); 
-                if (--currentAction.argument == 0)
-                    actionQueue.pop_front();
-                break;
-
-            case Action::write:
-                write(currentAction.argument); 
+    Action &currentAction = actionQueue.front();
+    
+    switch (currentAction.type) {
+        case Action::move:
+            move(); 
+            if (--currentAction.argument == 0)
                 actionQueue.pop_front();
-                break;
+            break;
 
-            default:
-                setState(currentAction.argument); 
-        }
+        case Action::turn:
+            turn(); 
+            if (--currentAction.argument == 0)
+                actionQueue.pop_front();
+            break;
+
+        case Action::write:
+            write(currentAction.argument); 
+            actionQueue.pop_front();
+            break;
+
+        default:
+            setState(currentAction.argument); 
     }
 }
 
