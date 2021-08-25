@@ -76,6 +76,9 @@ void Card::formatCode ()
     Action pushAction;
     Line &currentLine = code[lineEditorIndex];
     
+    if (tokenToActionType.end() == tokenToActionType.find(currentLine.token.first))
+        return;
+    
     pushAction.type = tokenToActionType.at(currentLine.token.first);
 
     if (currentLine.token.first == "move" or currentLine.token.first == "turn")
@@ -89,14 +92,13 @@ void Card::formatCode ()
 
 void Card::onKeyPress (sf::Event& event)
 {
-    //code[lineEditorIndex].isLocked = false;
-    
     switch (event.key.code) {
         case sf::Keyboard::Down:
             if (lineEditorIndex < code.size() - 1) {
                 ++lineEditorIndex;
                 cursor.move({0.f, fontSize + lineSpace});
             }
+            secondWordSelected = false;
             break;
 
         case sf::Keyboard::Up:
@@ -104,6 +106,7 @@ void Card::onKeyPress (sf::Event& event)
                 --lineEditorIndex;
                 cursor.move({0.f, -(fontSize + lineSpace)});
             }
+            secondWordSelected = false;
             break;
         
         case sf::Keyboard::BackSpace:
@@ -121,7 +124,7 @@ void Card::onKeyPress (sf::Event& event)
         
         case sf::Keyboard::Return:
             secondWordSelected = false;
-            formatCode();
+            //formatCode();
             if (lineEditorIndex < code.size() - 1) {
                 ++lineEditorIndex;
                 cursor.move({0.f, fontSize + lineSpace});
@@ -168,6 +171,9 @@ void Card::onKeyPress (sf::Event& event)
 
 void Card::compileCode ()
 {
+    for (lineEditorIndex = 0; lineEditorIndex < code.size(); ++lineEditorIndex)
+        formatCode();
+         
     for (const auto& line : code) {
         if (line.token.first == "if")
             currentScope = line.action.argument - '0';
