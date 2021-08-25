@@ -15,7 +15,7 @@ class Card
 private:
     char currentScope;
     unsigned int fontSize = 20;
-    float width = window.getSize().x / 5.f, lineSpace = 10.f, indentation = 25.f;
+    float width = window.getSize().x / 5.f, lineSpace = 10.f, indentation = 25.f, offSet = 50.f;
     struct Line
     {
         bool isLocked, isScopped;

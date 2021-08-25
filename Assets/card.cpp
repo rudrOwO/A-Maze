@@ -35,9 +35,12 @@ void Card::push_line (bool isScopped, const std::pair<std::string, std::string>&
     Line &currentLine = code.back();
 
     currentLine.isLocked = (token.first != "");
-    currentLine.drawToScreen.setPosition(startPosition + sf::Vector2f(50.f, (code.size() - 1) * (fontSize + lineSpace)));
-    currentLine.drawToScreen.setStyle(sf::Text::Style::Bold);
-    currentLine.drawToScreen.setCharacterSize(fontSize + 1);
+    currentLine.drawToScreen.setPosition(startPosition + sf::Vector2f(offSet, (code.size() - 1) * (fontSize + lineSpace)));
+
+    if (currentLine.isLocked) {
+        currentLine.drawToScreen.setStyle(sf::Text::Style::Bold);
+        currentLine.drawToScreen.setCharacterSize(fontSize + 1);
+    }
 
     formatCode(code.size() - 1, isScopped, token);
     cardBox.setSize({width, cardBox.getSize().y + fontSize + lineSpace});
@@ -64,13 +67,18 @@ void Card::formatCode (int lineIndex, bool isScopped, const std::pair<std::strin
     currentLine.drawToScreen.setString(token.first + " " + token.second);
     
     if (currentLine.isScopped)
-        currentLine.drawToScreen.move({indentation, 0.f});
+        currentLine.drawToScreen.setPosition({startPosition.x + offSet + indentation, currentLine.drawToScreen.getPosition().y});
 }
 
 
 void Card::onKeyPress (sf::Event& event)
 {
-    
+    switch (event.key.code) {
+        case sf::Keyboard::Down:
+            if (lineEditorIndex < code.size() - 1)
+                ++lineEditorIndex;
+
+    }
 }
 
 
