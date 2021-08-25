@@ -13,12 +13,13 @@
 1 1 Q 0
 0
 Q
-if 1
+if 2
 >> move 3
 >> turn 1
 move 2
+state F
 <<
 F
-<<
+write 3
 <<
 <<

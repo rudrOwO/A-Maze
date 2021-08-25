@@ -19,11 +19,11 @@ private:
     struct Line
     {
         bool isLocked, isScopped;
-        std::string token;
-        int arg;
+        std::pair<std::string, std::string> token;
+        Action action;
         sf::Text drawToScreen;
     };
-    int lineEditorPos = 0;
+    int lineEditorIndex = 0;
     std::vector<Line> code;
     std::vector<std::deque<Action>> dataToActionQueue; 
     sf::Color grey, blue_grey, red;
@@ -37,6 +37,6 @@ public:
     void onKeyPress (sf::Event& event);
     void draw ();
     void interpret ();
-    void push_line (bool isLocked, bool isScopped, const std::string& token, int arg = 0);
+    void push_line (bool isScopped, const std::pair<std::string, std::string>& token);
     const std::deque<Action>& getActionQueue (char data) const;
 };

@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <fstream>
+#include <utility>
 #include <vector>
 #include <string>
 #include "assets.h"
@@ -74,34 +75,28 @@ void loadLevel (int levelNumber)
 *************************/
     assets.deck = new Deck();
      
-    std::string token;
-    int looper;
-    char argument;
+    std::pair<std::string, std::string> token;
     bool isScopped = false;
     Card* currentCard;
         
-    while (levelFile >> token) {
-        if (token.size() == 1) {
+    while (levelFile >> token.first) {
+        if (token.first.size() == 1) {
             assets.deck->cards.insert({
-                token[0], currentCard = new Card()
+                token.first[0], currentCard = new Card()
             });
 
-            assets.deck->displayMessage.insert(25, token + ","); 
+            assets.deck->displayMessage.insert(25, token.first + ","); 
 
-        } else if (token == "move" or token == "turn") {
-            levelFile >> looper;
-            currentCard->push_line(true, isScopped, token, looper);
-
-        } else if (token == "<<") {
-            currentCard->push_line(false, isScopped, "");
+        } else if (token.first == "<<") {
+            currentCard->push_line(isScopped, {"", ""});
         
-        } else if (token == ">>") {
+        } else if (token.first == ">>") {
             isScopped = true;
             continue;
              
         } else {
-            levelFile >> argument;
-            currentCard->push_line(true, isScopped, token, argument);
+            levelFile >> token.second;
+            currentCard->push_line(isScopped, token);
         } 
         
         isScopped = false;

@@ -25,9 +25,23 @@ Card::Card ():
 }
 
 
-void Card::push_line(bool isLocked, bool isScopped, const std::string& token, int arg)
+void Card::push_line (bool isScopped, const std::pair<std::string, std::string>& token)
 {
-    code.push_back({ isLocked, isScopped, token, arg, sf::Text(token, firaCode, 20) });
+    bool isLocked = (token.first != "");
+
+    
+    
+    Action pushAction;
+    
+    if (token.first != "if" and token.first != "")
+        pushAction.type = tokenToActionType.at(token.first);
+
+    if (token.first == "move" or token.first == "turn")
+        pushAction.argument = std::stoi(token.second);
+    else if (token.first == "write" or token.first == "state" or token.first == "if")
+        pushAction.argument = token.second[0];
+    
+    code.push_back({ isLocked, isScopped, token, pushAction});
     cardBox.setSize({width, cardBox.getSize().y + fontSize + lineSpace});
 }
 
@@ -41,16 +55,16 @@ void Card::onKeyPress (sf::Event& event)
 void Card::interpret ()
 {
     for (const auto& line : code) {
-        if (line.token == "if")
-            currentScope = line.arg - '0';
+        if (line.token.first == "if")
+            currentScope = line.action.argument - '0';
 
-        else if (line.token != "") {
+        else if (line.token.first != "") {
             if (not line.isScopped) {
                 for (int i = 0; i < 9; ++i)
-                    dataToActionQueue[i].push_back({ tokenToActionType.at(line.token), line.arg });
+                    dataToActionQueue[i].push_back({ tokenToActionType.at(line.token.first), line.action.argument });
 
             } else {
-                dataToActionQueue[currentScope].push_back({ tokenToActionType.at(line.token), line.arg });
+                dataToActionQueue[currentScope].push_back({ tokenToActionType.at(line.token.first), line.action.argument });
             }
         }
     }
