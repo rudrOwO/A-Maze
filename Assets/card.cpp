@@ -59,7 +59,7 @@ void Card::formatCode (int lineIndex, bool isScopped, const std::pair<std::strin
     else if (token.first == "write" or token.first == "state" or token.first == "if")
         pushAction.argument = token.second[0];
     
-    Line &currentLine = code.back();
+    Line &currentLine = code[lineIndex];
 
     currentLine.isScopped = isScopped;
     currentLine.token = token;
