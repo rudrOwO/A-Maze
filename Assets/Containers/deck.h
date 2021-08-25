@@ -13,7 +13,7 @@ class Deck
 {
 private:
     bool compileStat = false;
-    unsigned int fontSize = 21;
+    unsigned int fontSize = 22;
     float width = window.getSize().x / 5.f;
     sf::Vector2f startPosition;
     sf::Color green, red;

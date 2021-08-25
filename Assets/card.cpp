@@ -13,6 +13,7 @@ const std::unordered_map<std::string, int> Card::tokenToActionType = {
 
 Card::Card ():
     dataToActionQueue(9),
+    cursor("->", firaCode, fontSize + 1),
     cardBox({width, 0.f}),
     startPosition(window.getSize().x * (4.f / 5.f), cardDrawStartY),
     red(Palette::colors.at('7').first),
@@ -22,20 +23,21 @@ Card::Card ():
 {
     cardBox.setPosition(startPosition);
     cardBox.setFillColor(blue_grey);
+    cursor.setPosition(startPosition + sf::Vector2f(10.f, 0.f));
+    cursor.setStyle(sf::Text::Style::Bold);
 }
 
 
 void Card::push_line (bool isScopped, const std::pair<std::string, std::string>& token)
 {
     code.push_back({false, false, {"", ""}, {0, 0}, sf::Text("", firaCode, fontSize)});
-    code.back().isLocked = (token.first != "");
-    
-    if (code.size() == 1)
-        code[0].drawToScreen.setPosition(startPosition + sf::Vector2f(10.f, 0.f));
-    else 
-        code.back().drawToScreen.setPosition(
-            code[0].drawToScreen.getPosition() + sf::Vector2f(0.f, (code.size() - 1) * (fontSize + lineSpace))
-        );
+
+    Line &currentLine = code.back();
+
+    currentLine.isLocked = (token.first != "");
+    currentLine.drawToScreen.setPosition(startPosition + sf::Vector2f(50.f, (code.size() - 1) * (fontSize + lineSpace)));
+    currentLine.drawToScreen.setStyle(sf::Text::Style::Bold);
+    currentLine.drawToScreen.setCharacterSize(fontSize + 1);
 
     formatCode(code.size() - 1, isScopped, token);
     cardBox.setSize({width, cardBox.getSize().y + fontSize + lineSpace});
@@ -54,13 +56,15 @@ void Card::formatCode (int lineIndex, bool isScopped, const std::pair<std::strin
     else if (token.first == "write" or token.first == "state" or token.first == "if")
         pushAction.argument = token.second[0];
     
-    code[lineIndex].isScopped = isScopped;
-    code[lineIndex].token = token;
-    code[lineIndex].action = pushAction;
-    code[lineIndex].drawToScreen.setString(token.first + " " + token.second);
+    Line &currentLine = code.back();
+
+    currentLine.isScopped = isScopped;
+    currentLine.token = token;
+    currentLine.action = pushAction;
+    currentLine.drawToScreen.setString(token.first + " " + token.second);
     
-    if (code[lineIndex].isScopped)
-        code[lineIndex].drawToScreen.move({indentation, 0.f});
+    if (currentLine.isScopped)
+        currentLine.drawToScreen.move({indentation, 0.f});
 }
 
 
@@ -101,6 +105,7 @@ const std::deque<Action>& Card::getActionQueue (char data) const
 void Card::draw ()
 {
     window.draw(cardBox);
+    window.draw(cursor);
     
     for (const auto& line : code)
         window.draw(line.drawToScreen);

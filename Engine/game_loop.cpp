@@ -7,8 +7,6 @@
 
 
 /************************************************************
-*  MAKE READING SEAMLESS WITH THE GAME TICK ? I.E. NO DELAY *
-*************************************************************
 *            IMPLEMENT DESTRUCTORS OF ALL ASSETS            *
 *************************************************************
 *              IMPLEMENT BOT STATE INDICATOR                *

@@ -20,7 +20,8 @@ move 2
 state F
 <<
 F
-if 5
->> write 3
+<<
+<<
+<<
 <<
 <<
