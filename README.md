@@ -1,2 +1,2 @@
 # Software Project Lab - 1
-#### A Puzzle-Platformer inspired by the mechanisms of Turing Machines :robot::robot:
+#### An isometric puzzle game inspired by the mechanisms of Turing Machines :robot::robot:

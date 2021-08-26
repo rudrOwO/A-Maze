@@ -10,8 +10,8 @@ void loadLevel (int levelNumber);
 
 
 // These are all the resources you need for the game
-sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Botomata", sf::Style::Fullscreen);
-//sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "Botomata"/*, sf::Style::Fullscreen */);
+sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "A-Maze", sf::Style::Fullscreen);
+//sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "A-Maze"/*, sf::Style::Fullscreen */);
 Asset_collection assets;
 sf::Color backgroundColor(0x232834ff);
 sf::Font firaCode;
@@ -21,7 +21,7 @@ std::chrono::duration<unsigned int, std::milli> tickRate(450);
 int main()
 {
     window.setFramerateLimit(60);
-    loadLevel(0);
+    loadLevel(2);
 
 
     while (window.isOpen()) {
