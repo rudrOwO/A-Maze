@@ -6,20 +6,6 @@
 #include "assets.h"
 
 
-/************************************************************
-*            IMPLEMENT DESTRUCTORS OF ALL ASSETS            *
-*************************************************************
-*              IMPLEMENT BOT STATE INDICATOR                *
-*************************************************************
-*           HANDLE INPUT IN A DIFFERENT THREAD ?            *
-*************************************************************
-*         OVERLOAD PALETTE CLASS AND CREATE A MENU          *
-*************************************************************
-* 1/15 PART OF Y AXIS IS RESERVED FOR PALETTE ON THE LEFT   *
-*     1/5 OF X AXIS IS RESERVED FOR DECK ON THE RIGHT       *
-************************************************************/
-
-
 void loadLevel (int levelNumber);
 
 
@@ -35,7 +21,7 @@ std::chrono::duration<unsigned int, std::milli> tickRate(450);
 int main()
 {
     window.setFramerateLimit(60);
-    loadLevel(1);
+    loadLevel(0);
 
 
     while (window.isOpen()) {

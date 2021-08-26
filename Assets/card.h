@@ -33,6 +33,7 @@ private:
     sf::Vector2f startPosition;
     static const std::unordered_map<std::string, int> tokenToActionType;
 
+    void fixText (Line &currentLine);
     void formatCode (bool isScopped, const std::pair<std::string, std::string>& token);
     void formatCode ();
 

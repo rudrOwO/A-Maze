@@ -64,10 +64,8 @@ void Card::formatCode (bool isScopped, const std::pair<std::string, std::string>
     currentLine.isScopped = isScopped;
     currentLine.token = token;
     currentLine.action = pushAction;
-    currentLine.drawToScreen.setString(token.first + " " + token.second);
-    
-    if (currentLine.isScopped)
-        currentLine.drawToScreen.setPosition({startPosition.x + offSet + indentation, currentLine.drawToScreen.getPosition().y});
+
+    fixText(currentLine);
 }
 
 
@@ -91,6 +89,7 @@ void Card::formatCode ()
 void Card::onKeyPress (sf::Event& event)
 {
     switch (event.key.code) {
+        case sf::Keyboard::Return:
         case sf::Keyboard::Down:
             if (lineEditorIndex < code.size() - 1) {
                 ++lineEditorIndex;
@@ -120,15 +119,6 @@ void Card::onKeyPress (sf::Event& event)
                 code[lineEditorIndex].isScopped = not code[lineEditorIndex].isScopped;
             break;
         
-        case sf::Keyboard::Return:
-            secondWordSelected = false;
-            //formatCode();
-            if (lineEditorIndex < code.size() - 1) {
-                ++lineEditorIndex;
-                cursor.move({0.f, fontSize + lineSpace});
-            }
-            break;
-            
         default:
             if (not code[lineEditorIndex].isLocked) {
                 if (event.key.code == sf::Keyboard::Space)
@@ -145,25 +135,7 @@ void Card::onKeyPress (sf::Event& event)
             }
     }
 
-    Line &currentLine = code[lineEditorIndex];
-
-    currentLine.drawToScreen.setString(currentLine.token.first + " " + currentLine.token.second);
-    
-    if (currentLine.isScopped)
-        currentLine.drawToScreen.setPosition({startPosition.x + offSet + indentation, currentLine.drawToScreen.getPosition().y});
-    else
-        currentLine.drawToScreen.setPosition({startPosition.x + offSet, currentLine.drawToScreen.getPosition().y});
-    
-    //if (event.type == sf::Event::TextEntered) {
-    //    std::string &selectedWord = code[lineEditorIndex].token.first;
-    //    
-    //    if (not code[lineEditorIndex].isLocked) {
-    //        if (event.key.code == sf::Keyboard::Space)
-    //            selectedWord = code[lineEditorIndex].token.second;
-    //        
-    //        selectedWord.push_back(static_cast<char>(event.text.unicode));
-    //    }
-    //}
+    fixText(code[lineEditorIndex]);
 }
 
 
@@ -195,6 +167,17 @@ const std::deque<Action>& Card::getActionQueue (char data) const
         data = '8';
 
     return dataToActionQueue[data - '0'];
+}
+
+
+void Card::fixText (Line& currentLine)
+{
+    currentLine.drawToScreen.setString(currentLine.token.first + " " + currentLine.token.second);
+    
+    if (currentLine.isScopped)
+        currentLine.drawToScreen.setPosition({startPosition.x + offSet + indentation, currentLine.drawToScreen.getPosition().y});
+    else
+        currentLine.drawToScreen.setPosition({startPosition.x + offSet, currentLine.drawToScreen.getPosition().y});
 }
 
 
