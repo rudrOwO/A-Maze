@@ -3,6 +3,14 @@
 extern sf::RenderWindow window;
 
 
+void (*Bot::isometricMove[4]) (sf::Vector2f&, int) = {
+    isometricIncrementX, 
+    isometricIncrementY, 
+    isometricDecrementX, 
+    isometricDecrementY
+};
+
+
 Bot::Bot (sf::Vector2i logicalPosition, char state, int direction, const std::vector<sf::Texture*>& texturePointers, Tile_matrix* &tileMap, Deck* &deck):
     deck(deck),
     tileMap(tileMap),
