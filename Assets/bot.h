@@ -12,6 +12,7 @@ class Bot
 {
 private:
     static constexpr float unit = 55.f;
+    static void (*isometricMove[4]) (sf::Vector2f&, int);
     int direction; 
     char state, data;
     Tile_matrix* &tileMap;
@@ -21,13 +22,6 @@ private:
     sf::Vector2f position;
     sf::Vector2i logicalPosition;
     std::deque<Action> actionQueue;
-
-    void (*isometricMove[4]) (sf::Vector2f&, int) = {
-        isometricIncrementX, 
-        isometricIncrementY, 
-        isometricDecrementX, 
-        isometricDecrementY
-    };
     
     void read ();
     void move ();
