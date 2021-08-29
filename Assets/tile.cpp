@@ -61,6 +61,9 @@ Non_initializable_tile::Non_initializable_tile (char newData, const sf::Vector2f
         crossShape[i].setPosition(this->getPosition() + sf::Vector2f(0.f, 0.5f * Tile::unit));
         crossShape[i].setFillColor(sf::Color::Black);
     } 
+    
+    if (isDestination())
+        shapes[0].setOutlineThickness(-3.f);
 }
 
 
