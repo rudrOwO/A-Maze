@@ -21,7 +21,7 @@ std::chrono::duration<unsigned int, std::milli> tickRate(450);
 int main()
 {
     window.setFramerateLimit(60);
-    loadLevel(1);
+    loadLevel(0);
 
 
     while (window.isOpen()) {

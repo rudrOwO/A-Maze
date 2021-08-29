@@ -19,6 +19,8 @@ private:
     Deck* &deck;
     const std::vector<sf::Texture*>& texturePointers;
     std::vector<sf::RectangleShape> sprites;
+    sf::CircleShape stateIndicatorCircle;
+    sf::Text stateIndicatorText;
     sf::Vector2f position;
     sf::Vector2i logicalPosition;
     std::deque<Action> actionQueue;

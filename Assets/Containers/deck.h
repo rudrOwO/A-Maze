@@ -29,7 +29,7 @@ public:
     void draw ();
     void compileAll ();
     bool isCompiled ();
-    Card* operator[] (int cardID);
+    Card* operator[] (char cardID);
 
     friend void loadLevel (int level);
 };

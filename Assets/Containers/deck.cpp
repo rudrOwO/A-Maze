@@ -73,7 +73,7 @@ void Deck::compileAll ()
 }
 
 
-Card* Deck::operator[] (int cardID)
+Card* Deck::operator[] (char cardID)
 {
     return cards[cardID];
 }

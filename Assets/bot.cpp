@@ -18,10 +18,17 @@ Bot::Bot (sf::Vector2i logicalPosition, char state, int direction, const std::ve
     logicalPosition(logicalPosition),
     state(state),
     direction(direction),
-    sprites(4, sf::RectangleShape(sf::Vector2f(Bot::unit, Bot::unit)))
+    sprites(4, sf::RectangleShape(sf::Vector2f(Bot::unit, Bot::unit))),
+    stateIndicatorCircle(12.f),
+    stateIndicatorText("", firaCode, 18)
     
 {
     position = (*tileMap)[logicalPosition.y][logicalPosition.x]->getPosition() + sf::Vector2f(0.f, 20.f);
+    stateIndicatorCircle.setPosition(position + sf::Vector2f(-10.f, -50.f));
+    stateIndicatorText.setPosition(position + sf::Vector2f(-5.f, -55.f));
+
+    stateIndicatorCircle.setFillColor(sf::Color::Black);
+    stateIndicatorText.setString(std::string(1, state));
 
     for (int i = 0; i < 4; ++i) {
         sprites[i].setOrigin(Bot::unit / 2.f, Bot::unit / 2.f);    
@@ -73,6 +80,8 @@ void Bot::pollActionQueue ()
 void Bot::draw ()
 {
     window.draw(sprites[direction]);
+    window.draw(stateIndicatorCircle);
+    window.draw(stateIndicatorText);
 }
 
 
@@ -99,6 +108,10 @@ void Bot::move ()
     for (auto& sprite : sprites) {
         sprite.setPosition(position);
     }
+
+    // updating positon of state indicator    
+    stateIndicatorCircle.setPosition(position + sf::Vector2f(-10.f, -50.f));
+    stateIndicatorText.setPosition(position + sf::Vector2f(-5.f, -55.f));
 }
 
 
@@ -118,6 +131,7 @@ void Bot::write (char newData)
 void Bot::setState (char newState)
 {
     state = newState;
+    stateIndicatorText.setString(std::string(1, state));
     actionQueue.clear();
 }
 
