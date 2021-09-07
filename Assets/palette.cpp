@@ -3,7 +3,6 @@
 extern sf::RenderWindow window;
 extern sf::Font firaCode;
 
-
 char Palette::currentData = '0';
 
 // Mapped tile data to a specific pair of colors
@@ -17,14 +16,11 @@ const std::map<char, std::pair<sf::Color, sf::Color>> Palette::colors = {
     {'5', {sf::Color(0x607d8bff), sf::Color(0x34515eff)}},
     {'6', {sf::Color(0x8d6e63ff), sf::Color(0x5f4339ff)}},
     {'7', {sf::Color(0xc62828ff), sf::Color(0x8e0000ff)}},
-    {'!', {sf::Color(0x2196f3ff), sf::Color(0x0069c0ff)}}     
-};
+    {'!', {sf::Color(0x2196f3ff), sf::Color(0x0069c0ff)}}};
 
-
-Palette::Palette ():
-    unit(window.getSize().y / 15.f),
-    whiteBorder(0xddddddff),
-    origin(0.f, (window.getSize().y - 10.f * Palette::unit) / 2.f)
+Palette::Palette() : unit(window.getSize().y / 15.f),
+                     whiteBorder(0xddddddff),
+                     origin(0.f, (window.getSize().y - 10.f * Palette::unit) / 2.f)
 
 {
     sf::Vector2f currentRectanglePos(origin);
@@ -34,29 +30,30 @@ Palette::Palette ():
     fillerText.setFont(firaCode);
     fillerText.setCharacterSize(23);
     fillerShape.setOutlineThickness(-4.f);
-    
-    for (char c : drawSequence) {
-        const auto& color = Palette::colors.at(c);
+
+    for (char c : drawSequence)
+    {
+        const auto &color = Palette::colors.at(c);
 
         fillerText.setString(c);
         fillerText.setPosition(currentRectanglePos + sf::Vector2f(5.f, 5.f));
 
         fillerShape.setFillColor(color.first);
         fillerShape.setPosition(currentRectanglePos);
-        
+
         shapeWithText.emplace_back(fillerShape, fillerText);
         currentRectanglePos += sf::Vector2f(0.f, Palette::unit);
     }
 }
 
-
-void Palette::draw ()
+void Palette::draw()
 {
     int seq = 0;
-    for (auto& it : shapeWithText) {
+    for (auto &it : shapeWithText)
+    {
         char c = drawSequence[seq++];
 
-        if(c == currentData)
+        if (c == currentData)
             it.first.setOutlineColor(whiteBorder);
         else
             it.first.setOutlineColor(Palette::colors.at(c).second);
@@ -68,27 +65,26 @@ void Palette::draw ()
     }
 }
 
-
-bool Palette::onPaletteClick ()
+bool Palette::onPaletteClick()
 {
     // Calculating x, y co-ordinates relative to the origin of palette / colorGuide
     int x = sf::Mouse::getPosition().x - (int)origin.x,
         y = sf::Mouse::getPosition().y - (int)origin.y;
-    
+
     x /= Palette::unit;
     y /= Palette::unit;
 
     // Bound Check to see which color is clicked on; if any
-    if (x < 1 and y >= 0 and y < sizeof(drawSequence)) {
+    if (x < 1 and y >= 0 and y < sizeof(drawSequence))
+    {
         currentData = (y == 0 ? '*' : y - 1 + '0');
         return true;
     }
-    
+
     return false;
 }
 
-
-char Palette::getCurrentData () 
+char Palette::getCurrentData()
 {
     return currentData;
 }

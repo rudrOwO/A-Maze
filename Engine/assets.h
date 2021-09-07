@@ -10,13 +10,12 @@
 #include "../Assets/palette.h"
 #include "../Assets/simulator.h"
 
-
 struct Asset_collection
 {
-    Tile_matrix* tileMap;
-    Swarm* swarm;
-    Deck* deck;
+    Tile_matrix *tileMap;
+    Swarm *swarm;
+    Deck *deck;
 
-    Palette* colorGuide;
-    Simulator* simulator;
+    Palette *colorGuide;
+    Simulator *simulator;
 };

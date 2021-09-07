@@ -4,7 +4,6 @@
 #include <map>
 #include <utility>
 
-
 class Palette
 {
 private:
@@ -17,11 +16,11 @@ private:
 
 public:
     static const std::map<char, std::pair<sf::Color, sf::Color>> colors;
-    
-    Palette ();
 
-    void draw ();
-    bool onPaletteClick ();
+    Palette();
 
-    static char getCurrentData ();
+    void draw();
+    bool onPaletteClick();
+
+    static char getCurrentData();
 };

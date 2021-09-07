@@ -9,7 +9,6 @@
 extern sf::RenderWindow window;
 extern sf::Font firaCode;
 
-
 class Card
 {
 private:
@@ -27,21 +26,21 @@ private:
     int lineEditorIndex = 0;
     sf::Text cursor;
     std::vector<Line> code;
-    std::vector<std::deque<Action>> dataToActionQueue; 
+    std::vector<std::deque<Action>> dataToActionQueue;
     sf::Color grey, blue_grey, red;
     sf::RectangleShape cardBox;
     sf::Vector2f startPosition;
     static const std::unordered_map<std::string, int> tokenToActionType;
 
-    void fixText (Line &currentLine);
-    void formatCode (bool isScopped, const std::pair<std::string, std::string>& token);
-    void formatCode ();
+    void fixText(Line &currentLine);
+    void formatCode(bool isScopped, const std::pair<std::string, std::string> &token);
+    void formatCode();
 
-public:    
-    Card ();
-    void onKeyPress (sf::Event& event);
-    void draw ();
-    void compileCode ();
-    void push_line (bool isScopped, const std::pair<std::string, std::string>& token);
-    const std::deque<Action>& getActionQueue (char data) const;
+public:
+    Card();
+    void onKeyPress(sf::Event &event);
+    void draw();
+    void compileCode();
+    void push_line(bool isScopped, const std::pair<std::string, std::string> &token);
+    const std::deque<Action> &getActionQueue(char data) const;
 };

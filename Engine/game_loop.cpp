@@ -5,9 +5,7 @@
 #include <chrono>
 #include "assets.h"
 
-
-void loadLevel (int levelNumber);
-
+void loadLevel(int levelNumber);
 
 // These are all the resources you need for the game
 sf::RenderWindow window(sf::VideoMode::getDesktopMode(), "A-Maze", sf::Style::Fullscreen);
@@ -17,46 +15,49 @@ sf::Color backgroundColor(0x232834ff);
 sf::Font firaCode;
 std::chrono::duration<unsigned int, std::milli> tickRate(450);
 
-
 int main()
 {
     window.setFramerateLimit(60);
     loadLevel(1);
 
-
-    while (window.isOpen()) {
+    while (window.isOpen())
+    {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
-        
-        while (window.pollEvent(event)) {
-            switch (event.type) {
-                case sf::Event::KeyPressed:
-                    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))  // Using 'Escape' to close window
-                        window.close(); 
 
-                    else if (Simulator::getStatus() == Simulator::paused)
-                        assets.deck->onKeyPress(event); 
+        while (window.pollEvent(event))
+        {
+            switch (event.type)
+            {
+            case sf::Event::KeyPressed:
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) // Using 'Escape' to close window
+                    window.close();
 
+                else if (Simulator::getStatus() == Simulator::paused)
+                    assets.deck->onKeyPress(event);
+
+                break;
+
+            // Handling all mouse clicks
+            case sf::Event::MouseButtonPressed:
+                if (assets.simulator->onMouseClick())
                     break;
-                      
-                // Handling all mouse clicks
-                case sf::Event::MouseButtonPressed:
-                    if (assets.simulator->onMouseClick())
+
+                if (Simulator::getStatus() == Simulator::paused)
+                {
+                    if (assets.tileMap->onTileClick())
                         break;
 
-                    if (Simulator::getStatus() == Simulator::paused) {
-                        if (assets.tileMap->onTileClick())
-                            break;
-
-                        if (assets.colorGuide->onPaletteClick())
-                            break;
-                    }
+                    if (assets.colorGuide->onPaletteClick())
+                        break;
+                }
             }
         }
 
-        window.clear(backgroundColor); 
+        window.clear(backgroundColor);
 
-        if (Simulator::getStatus() == Simulator::running) { 
+        if (Simulator::getStatus() == Simulator::running)
+        {
             if (not assets.deck->isCompiled())
                 assets.deck->compileAll();
 
@@ -65,10 +66,10 @@ int main()
 
             std::this_thread::sleep_for(tickRate);
         }
-        
+
         assets.colorGuide->draw();
         assets.simulator->draw();
-        assets.tileMap->draw(); 
+        assets.tileMap->draw();
         assets.swarm->draw();
         assets.deck->draw();
 

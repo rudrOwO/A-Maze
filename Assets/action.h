@@ -1,7 +1,13 @@
 #pragma once
 
-struct Action 
-{ 
-    enum { move, turn, write, setState };
-    int type, argument; 
+struct Action
+{
+    enum
+    {
+        move,
+        turn,
+        write,
+        setState
+    };
+    int type, argument;
 };

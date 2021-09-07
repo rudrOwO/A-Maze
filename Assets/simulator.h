@@ -3,26 +3,33 @@
 #include <vector>
 #include <string>
 
-
-class Simulator 
+class Simulator
 {
 public:
-    enum {running, paused, restart, menu, levelPassed, gameOver};
+    enum
+    {
+        running,
+        paused,
+        restart,
+        menu,
+        levelPassed,
+        gameOver
+    };
 
 private:
     static constexpr float unit = 50.f;
-    static int status; 
+    static int status;
     sf::Vector2f origin;
     sf::Color grey, blue, dark_blue, dark_grey;
     std::vector<sf::RectangleShape> buttons, sprites;
-    std::vector<std::string> textureFileSequence {"play", "pause", "restart", "menu"};
-    std::vector<sf::Texture*> texturePointerSequence;
+    std::vector<std::string> textureFileSequence{"play", "pause", "restart", "menu"};
+    std::vector<sf::Texture *> texturePointerSequence;
 
 public:
-    Simulator ();
+    Simulator();
 
-    static int getStatus ();
-    static void setStatus (int newStatus);
-    bool onMouseClick ();
-    void draw ();
+    static int getStatus();
+    static void setStatus(int newStatus);
+    bool onMouseClick();
+    void draw();
 };
